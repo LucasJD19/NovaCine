@@ -1,0 +1,124 @@
+.funciones-container {
+  padding: 60px;
+  text-align: start;
+  padding-bottom: 0;
+  background-color: #121212;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.poster-info {
+  flex: 1;
+  min-width: 300px;
+  text-align: start;
+}
+
+.poster {
+  width: 100%;
+  max-width: 500px;
+  height: 415px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.info {
+  margin-top: 10px;
+}
+
+.descripcion {
+  margin-top: 10px;
+  color: #999;
+}
+
+.right-section {
+  flex: 2;
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.trailer-container iframe {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.aviso {
+  font-size: 0.9rem;
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  border: 1px solid rgb(183, 183, 183);
+  overflow: hidden;
+  width: 100%;
+}
+
+.fechas {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.fechas div {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  color: black;
+}
+
+.funciones {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.funcion-card {
+  border: 1px solid rgb(183, 183, 183);
+  background-color: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.funcion-titulo {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 10px 16px;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.funcion-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: transparent;
+}
+
+.horarios {
+  padding: 6px 12px;
+  border: 1px solid white;
+  border-radius: 6px;
+  color: white;
+  background-color: transparent;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.horarios:hover {
+  background-color: white;
+  color: black;
+}
+
