@@ -18,7 +18,7 @@ const Home = () => {
         id="carouselExampleIndicators"
         className="carousel slide mb-5"
         data-bs-ride="carousel"
-        data-bs-interval="500"
+        data-bs-interval="4000"
         style={{
           maxWidth: "1300px",
           height: "500px",

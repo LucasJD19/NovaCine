@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/Funciones.css";
 
 const MainFunciones = () => {
+
   return (
     <main className="funciones-container">
       <section className="top-section">
@@ -91,6 +92,9 @@ const MainFunciones = () => {
           <br />
         </div>
       </section>
+
+      {/* este boton debera agregar la pelicula al carrito segun su id - por el momento no sirve */}
+      {/* <button>Boton de añadir ticket</button> */}
     </main>
   );
 };

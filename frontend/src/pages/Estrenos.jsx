@@ -1,9 +1,12 @@
 import React from 'react'
+import MainEstrenos from "../components/MainEstrenos"
 
 const Estrenos = () => {
+
   return (
     <div>
       <h1>Estrenos</h1>
+      <MainEstrenos />
     </div>
   )
 }
