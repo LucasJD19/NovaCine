@@ -1,0 +1,37 @@
+.footer {
+    background-color: #1c1c1c;
+    color: #f1c40f;
+    font-size: 0.95rem;
+}
+
+.footer-logo-img {
+  height: 80px;
+  max-width: 300px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.3);
+}
+
+
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.footer-icon {
+    color: #f1c40f;
+    font-size: 1.5rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.footer-icon:hover {
+    transform: scale(1.2);
+    color: #ffffff;
+}
+
+.footer-copy {
+    font-size: 0.85rem;
+    color: #ccc;
+}

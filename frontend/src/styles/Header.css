@@ -1,0 +1,29 @@
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+
+.brand-name {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #f1c40f; /* Amarillo dorado */
+}
+
+.nav-link {
+    font-weight: 500;
+    color: white !important;
+}
+
+.nav-link:hover {
+    color: #f1c40f !important;
+}
+
+.bi-cart-fill {
+    color: white;
+    transition: transform 0.2s ease-in-out;
+}
+
+.bi-cart-fill:hover {
+    color: #f1c40f;
+    transform: scale(1.2);
+}

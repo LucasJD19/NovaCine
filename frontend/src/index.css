@@ -1,3 +1,4 @@
+/*
 html, body {
   margin: 0;
   padding: 0;
@@ -9,3 +10,66 @@ html, body {
   font-weight: 400;
   color: #fff;
 }
+  */
+/* RESET GENERAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ESTILOS BASE DEL HTML Y BODY */
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #121212;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #fff;
+}
+
+/* CONTENEDOR PRINCIPAL DE CADA PÁGINA */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* CONTENIDO PRINCIPAL (PAGES) */
+.main-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* ESTILOS TIPOGRÁFICOS BASE */
+h1, h2, h3, h4, h5, h6 {
+  color: #f1c40f;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ENLACES */
+a {
+  color: #f1c40f;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* IMÁGENES RESPONSIVAS */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
