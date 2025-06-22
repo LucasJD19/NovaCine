@@ -6,7 +6,6 @@ import Estrenos from './pages/Estrenos';
 import Funciones from './pages/Funciones';
 import Tienda from './pages/Tienda';
 import Carrito from './pages/Carrito';
-
 import './App.css';
 
 const App = () => {
@@ -19,6 +18,7 @@ const App = () => {
           <Route path="/estrenos" element={<Estrenos />} />
           <Route path="/tienda" element={<Tienda />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/funciones" element={<Funciones/>} />
         </Routes>
       </main>
       <Footer />
