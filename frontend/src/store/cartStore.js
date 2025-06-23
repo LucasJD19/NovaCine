@@ -20,11 +20,24 @@ export const useCarritoStore = create((set, get) => ({
       set({ productos: [...productosActuales, { ...producto, cantidad: 1 }] });
     }
   },
+  reducirCantidad: (idProducto) => {
+    const productosActuales = get().productos;
+    const actualizados = productosActuales
+      .map((item) =>
+        item.id === idProducto
+          ? { ...item, cantidad: item.cantidad - 1 }
+          : item
+      )
+      .filter((item) => item.cantidad > 0);
+
+    set({ productos: actualizados });
+  },
 
   eliminarDelCarrito: (idProducto) => {
     const filtrados = get().productos.filter((item) => item.id !== idProducto);
     set({ productos: filtrados });
   },
+  
 
   vaciarCarrito: () => set({ productos: [] }),
 

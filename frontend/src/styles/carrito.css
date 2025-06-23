@@ -1,0 +1,70 @@
+.carrito-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+.producto-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.info-producto {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.producto-item img {
+  width: 50px;
+  height: auto;
+  border-radius: 5px;
+}
+.botones-cantidad button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+
+.botones-carrito {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.vaciar {
+  padding: 10px 15px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.vaciar:hover {
+  background-color: darkred;
+}
+
+.pagar {
+  padding: 10px 15px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pagar:hover {
+    background-color: darkgreen;
+}

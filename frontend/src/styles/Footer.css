@@ -2,10 +2,11 @@
     background-color: #1c1c1c;
     color: #f1c40f;
     font-size: 0.95rem;
+    
 }
 
 .footer-logo-img {
-  height: 80px;
+  height: 100px;
   max-width: 300px;
   width: auto;
   object-fit: contain;
