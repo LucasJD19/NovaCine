@@ -1,0 +1,9 @@
+.crud-title {
+  display: flex;
+  height: 40px;
+  margin: 20px;
+}
+
+.crud-title button {
+  margin-left: 20px;
+}
