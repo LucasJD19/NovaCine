@@ -1,56 +1,32 @@
-import React from 'react'
-import ProductoCard from "../components/ProductoCard"
+import React, { useEffect, useState } from 'react';
+import ProductoCard from '../components/ProductoCard';
+import { getProductos } from '../data/db';
 
 const ProductosTienda = () => {
+  const [productos, setProductos] = useState([]);
 
-    const productos = [
-        {
-            id: 5,
-            titulo: 'Pochoclos XL',
-            precio: 2800,
-            imagen: '../../public/images/Pochoclera.png',
-            tipo: 'tienda'
-          },
-          {
-            id: 6,
-            titulo: 'Nachos con Queso',
-            precio: 3500,
-            imagen: '../../public/images/Pochoclera.png',
-            tipo: 'tienda'
-          },
-          {
-            id: 7,
-            titulo: 'Coca-Cola',
-            precio: 2500,
-            imagen: '../../public/images/Pochoclera.png',
-            tipo: 'tienda'
-          },
-          {
-            id: 8,
-            titulo: 'Chocolate Block',
-            precio: 2200,
-            imagen: '../../public/images/Pochoclera.png',
-            tipo: 'tienda'
-          },
-      ]
+  useEffect(() => {
+    getProductos()
+      .then(data => setProductos(data))
+      .catch(err => console.error('Error al cargar productos:', err));
+  }, []);
 
- return (
-  <div>
-    <div className="row">
-      {productos.map((prod) => (
-        <ProductoCard
-          key={prod.id}
-          id={prod.id}
-          titulo={prod.titulo}
-          precio={prod.precio}
-          imagen={prod.imagen}
-          tipo={prod.tipo}
-        />
-      ))}
+  return (
+    <div>
+      <div className="row">
+        {productos.map((prod) => (
+          <ProductoCard
+            key={prod.id}
+            id={prod.id}
+            titulo={prod.nombre}
+            precio={prod.precio}
+            imagen= '../../public/images/Pochoclera.png'
+            tipo={prod.tipo}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-}
-
-export default ProductosTienda
+export default ProductosTienda;

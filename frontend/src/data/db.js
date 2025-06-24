@@ -1,0 +1,8 @@
+import axios from 'axios';
+
+const API = axios.create({
+  baseURL: 'http://localhost:8000/api',
+});
+
+export const getPeliculas = () => API.get('/peliculas').then(res => res.data);
+export const getProductos = () => API.get('/productos').then(res => res.data);
