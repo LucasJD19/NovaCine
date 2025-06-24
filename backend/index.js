@@ -5,6 +5,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");           // Para leer variables de entorno desde .env
 const peliculasRoutes = require("./routes/peliculas.routes"); // Import de las rutas de peliculas
 const usuariosRoutes = require("./routes/usuarios.routes"); // Import de rutas usuarios
+const productosRoutes = require('./routes/productos.routes'); // Import de rutas productos 
+const provinciasRoutes = require('./routes/provincias.routes');
 
 // Configuracion de Express y otras herramientas
 const app = express();
@@ -20,6 +22,8 @@ app.get("/", (req, res) => {
 // Rutas de la API
 app.use("/api/peliculas", peliculasRoutes);  // Delegamos las rutas de /api/peliculas al archivo correspondiente
 app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/productos", productosRoutes);
+app.use("/api/provincias", provinciasRoutes);
 
 // Servidor escucha en el puerto definido en .env o 8000 por defecto
 const PORT = process.env.PORT || 8000;
