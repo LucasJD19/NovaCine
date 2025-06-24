@@ -34,23 +34,23 @@ const ProductosTienda = () => {
           },
       ]
 
-  return (
-    <div>
-        <h2>Productos Tienda</h2>
-      <div className="grid-productos">
-        {productos.map((prod) => (
-          <ProductoCard
-            key={prod.id}
-            id={prod.id}
-            titulo={prod.titulo}
-            precio={prod.precio}
-            imagen={prod.imagen}
-            tipo={prod.tipo}
-          />
-        ))}
-      </div>
+ return (
+  <div>
+    <div className="row">
+      {productos.map((prod) => (
+        <ProductoCard
+          key={prod.id}
+          id={prod.id}
+          titulo={prod.titulo}
+          precio={prod.precio}
+          imagen={prod.imagen}
+          tipo={prod.tipo}
+        />
+      ))}
     </div>
-  )
+  </div>
+);
+
 }
 
 export default ProductosTienda

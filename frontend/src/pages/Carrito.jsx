@@ -15,7 +15,7 @@ const Carrito = () => {
   return (
     <div className="carrito-container">
       {productos.length === 0 ? (
-        <p>Tu carrito está vacío.</p>
+        <p style={{textAlign:"center"}}>Tu carrito está vacío.</p>
       ) : (
         <div>
           {productos.map((producto) => (

@@ -5,7 +5,7 @@ const Estrenos = () => {
 
   return (
     <div>
-      <h1>Estrenos</h1>
+      <h1 style={{textAlign:"center"}}>Estrenos</h1>
       <MainEstrenos />
     </div>
   )

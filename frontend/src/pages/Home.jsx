@@ -20,15 +20,17 @@ const Home = () => {
         data-bs-ride="carousel"
         data-bs-interval="4000"
         style={{
-          maxWidth: "1300px",
-          height: "500px",
+          maxWidth: "100%",
+          width: "1300px",
+          height: "65vh",
+          aspectRatio: "16/9",
           margin: "0 auto",
           overflow: "hidden",
           borderRadius: "12px",
           backgroundColor: "black",
         }}
       >
-       {/* necesario para que funcione el carrusel pero no se ve */}
+        {/* necesario para que funcione el carrusel pero no se ve */}
         <ol className="carousel-indicators d-none">
           <li
             data-bs-target="#carouselExampleIndicators"
@@ -91,7 +93,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        
+
         {/* las flechas para mover el carrusel */}
         <button
           className="carousel-control-prev"
@@ -121,50 +123,36 @@ const Home = () => {
 
       {/* Cards con imagen */}
       <div className="row">
-        <div className="col-md-4 mb-4">
-          <div
-            className="card bg-dark border-white"
-            style={{ cursor: "pointer", height: "100%" }}
-            onClick={handleClick}
-          >
-            <img
-              src="https://infocronos.com.ar/uploads/ckeditor/2024/04/20240403154014_joker-folie-a-deux-first-poster-shows-a-dancing-joaquin-phoe-8d9v.jpg"
-              className="card-img-top"
-              alt="Película"
-              style={{ width: "100%", height: "500px", objectFit: "cover" }}
-            />
+        {[
+          "https://infocronos.com.ar/uploads/ckeditor/2024/04/20240403154014_joker-folie-a-deux-first-poster-shows-a-dancing-joaquin-phoe-8d9v.jpg",
+          "https://i.redd.it/new-poster-for-thunderbolts-in-theaters-on-may-2-v0-br0qp4pcxete1.jpg?width=1290&format=pjpg&auto=webp&s=b57c2fb250b46a87fbb1c68ac92100bb24b01522",
+          "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZ2DJXwZG4ZkCK_Ibckyx8nVze9MQzxwyL_qXtXVapUcv0sLz0ysXgNs1H9LrUzknUSf8GPaTovh9bfTzIknSBcTMvHwZKlB1v0Bsa843drieweSgTDyrhObInDzJHeNzI1dOZVIXPSFQ7ZnYRal1O6HLYOmhcVl0b5NaOWOa3Xl9tga3X9q6FDBN2Vj0/s16000-rw/capitan-america-un-nuevo-mundo.jpg",
+        ].map((src, i) => (
+          <div key={i} className="col-12 col-sm-6 col-md-4 mb-4">
+            <div
+              className="card bg-dark border-white h-100"
+              style={{
+                cursor: "pointer",
+                width: "100%",
+                height: "100%",
+              }}
+              onClick={handleClick}
+            >
+              <img
+                src={src}
+                className="card-img-top h-100"
+                alt="Película"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  margin: "0px"
+                }}
+              />
+            </div>
           </div>
-        </div>
-
-        <div className="col-md-4 mb-4">
-          <div
-            className="card bg-dark border-white"
-            style={{ cursor: "pointer", height: "100%" }}
-            onClick={handleClick}
-          >
-            <img
-              src="https://i.redd.it/new-poster-for-thunderbolts-in-theaters-on-may-2-v0-br0qp4pcxete1.jpg?width=1290&format=pjpg&auto=webp&s=b57c2fb250b46a87fbb1c68ac92100bb24b01522"
-              className="card-img-top"
-              alt="Película"
-              style={{ width: "100%", height: "500px", objectFit: "cover" }}
-            />
-          </div>
-        </div>
-
-        <div className="col-md-4 mb-4">
-          <div
-            className="card bg-dark border-white"
-            style={{ cursor: "pointer", height: "100%" }}
-            onClick={handleClick}
-          >
-            <img
-              src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZ2DJXwZG4ZkCK_Ibckyx8nVze9MQzxwyL_qXtXVapUcv0sLz0ysXgNs1H9LrUzknUSf8GPaTovh9bfTzIknSBcTMvHwZKlB1v0Bsa843drieweSgTDyrhObInDzJHeNzI1dOZVIXPSFQ7ZnYRal1O6HLYOmhcVl0b5NaOWOa3Xl9tga3X9q6FDBN2Vj0/s16000-rw/capitan-america-un-nuevo-mundo.jpg"
-              className="card-img-top"
-              alt="Película"
-              style={{ width: "100%", height: "500px", objectFit: "cover" }}
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
