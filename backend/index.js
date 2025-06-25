@@ -7,6 +7,8 @@ const peliculasRoutes = require("./routes/peliculas.routes"); // Import de las r
 const usuariosRoutes = require("./routes/usuarios.routes"); // Import de rutas usuarios
 const productosRoutes = require('./routes/productos.routes'); // Import de rutas productos 
 const provinciasRoutes = require('./routes/provincias.routes');
+const funcionesRoutes = require("./routes/funciones.routes");
+
 
 // Configuracion de Express y otras herramientas
 const app = express();
@@ -24,6 +26,8 @@ app.use("/api/peliculas", peliculasRoutes);  // Delegamos las rutas de /api/peli
 app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/productos", productosRoutes);
 app.use("/api/provincias", provinciasRoutes);
+app.use("/api/funciones", funcionesRoutes);
+
 
 // Servidor escucha en el puerto definido en .env o 8000 por defecto
 const PORT = process.env.PORT || 8000;
