@@ -16,8 +16,8 @@ const ProductosTienda = () => {
       <div className="row">
         {productos.map((prod) => (
           <ProductoCard
-            key={prod.id}
-            id={prod.id}
+            key={prod.idProducto}
+            id={prod.idProducto}
             titulo={prod.nombre}
             precio={prod.precio}
             imagen= '../../public/images/Pochoclera.png'

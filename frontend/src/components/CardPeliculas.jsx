@@ -13,14 +13,14 @@ const CardPeliculas = () => {
     });
   }, []);
 
-  const handleClick = () => {
-    navigate("/Funciones");
+  const handleClick = (idPelicula) => {
+    navigate(`/funciones/${idPelicula}`);
   };
 
   return (
     <div className="row">
       {peliculas.map((pelicula) => (
-        <div key={pelicula.id} className="col-12 col-sm-6 col-md-4 mb-4">
+        <div key={pelicula.idPelicula} className="col-12 col-sm-6 col-md-4 mb-4">
           <div
             className="card bg-dark border-white h-100"
             style={{
@@ -28,7 +28,7 @@ const CardPeliculas = () => {
               width: "100%",
               height: "100%",
             }}
-            onClick={handleClick}
+            onClick={() => handleClick(pelicula.idPelicula)}
           >
             <img
               src={pelicula.imagen}

@@ -6,3 +6,4 @@ const API = axios.create({
 
 export const getPeliculas = () => API.get('/peliculas').then(res => res.data);
 export const getProductos = () => API.get('/productos').then(res => res.data);
+export const getFuncionesPorPelicula = (idPelicula) => API.get(`/funciones/pelicula/${idPelicula}`).then(res => res.data);

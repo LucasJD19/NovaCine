@@ -1,51 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import "../styles/Funciones.css";
 
 const MainFunciones = () => {
+  const { idPelicula } = useParams();
+  const [pelicula, setPelicula] = useState(null);
+  const [funciones, setFunciones] = useState([]);
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
+
+  const getFechaUTC = (fechaHora) => {
+    const date = new Date(fechaHora);
+    return date.toISOString().split("T")[0]; // YYYY-MM-DD
+  };
+
+  useEffect(() => {
+    const fetchPeliculaYFunciones = async () => {
+      try {
+        const resPeli = await fetch("http://localhost:8000/api/peliculas");
+        const dataPeli = await resPeli.json();
+        const peli = dataPeli.find((p) => p.idPelicula === Number(idPelicula));
+        setPelicula(peli);
+
+        const resFunciones = await fetch(
+          `http://localhost:8000/api/funciones/pelicula/${idPelicula}`
+        );
+        const dataFunciones = await resFunciones.json();
+        setFunciones(dataFunciones);
+      } catch (err) {
+        console.error("Error al obtener datos:", err);
+      }
+    };
+
+    fetchPeliculaYFunciones();
+  }, [idPelicula]);
+
+  if (!pelicula) return <p>Cargando película...</p>;
+
+  //fechas únicas sin repetir y ordenadas
+  const fechasDisponibles = Array.from(
+    new Set(funciones.map((f) => getFechaUTC(f.fechaHora)))
+  ).sort((a, b) => new Date(a) - new Date(b));
+
+  //Filtrar funciones por fecha seleccionada y ordenarlas por hora
+  const funcionesFiltradas = fechaSeleccionada
+    ? funciones
+        .filter((f) => getFechaUTC(f.fechaHora) === fechaSeleccionada)
+        .sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora))
+    : [];
 
   return (
     <main className="funciones-container">
       <section className="top-section">
         <div className="poster-info">
           <img
-            src="https://motoblog.com/wp-content/uploads/2022/08/WhatsApp-Image-2022-08-16-at-3.36.56-PM-2.jpeg"
-            alt="Poster de la película"
+            src={pelicula.imagen}
+            alt={`Poster de ${pelicula.nombre}`}
             className="poster"
           />
           <div className="info">
-            <h2>Nombre de la Película</h2>
-            <p>Duración: 1h 45min</p>
-            <p>Clasificación: ATP</p>
-            <p className="descripcion">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem,
-              aliquam, delectus possimus, recusandae corrupti deleniti tempora
-              et vel ipsam reprehenderit porro! Repellat quos exercitationem
-              excepturi praesentium voluptate perferendis quo optio id, a
-              accusantium qui dolorem omnis sapiente? Accusamus numquam illum
-              eligendi animi! Exercitationem error itaque ad veniam unde, sed
-              quas porro asperiores facilis aperiam suscipit? Quasi atque a
-              minima ipsum enim tempore porro ipsam commodi minus quibusdam hic
-              mollitia aspernatur vitae repellat ducimus ad aliquam consequatur
-              omnis impedit sint, incidunt vero reiciendis. Deserunt ipsam
-              excepturi fuga amet sapiente inventore molestias consectetur
-              expedita, id commodi, sunt perferendis nemo, enim ullam quia.
-            </p>
+            <h2>{pelicula.nombre}</h2>
+            <p>Duración: {pelicula.duracion} Minutos</p>
+            <p>Clasificación: {pelicula.clasificacion}</p>
+            <p className="descripcion">{pelicula.descripcion}</p>
           </div>
         </div>
 
         <div className="right-section">
           <div className="trailer-container">
-            <iframe
-              width="100%"
-              height="415"
-              src="https://www.youtube.com/embed/qZ8hIVoiO1g?si=Bu6fts3FQilv-pzH"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
+            <p>ACA VA EL TRAILERR</p>
           </div>
+
           <div className="aviso">
             <p>
               La venta online cierra 60 minutos antes de cada función. Puede
@@ -54,47 +78,79 @@ const MainFunciones = () => {
             </p>
           </div>
 
+          {/* botones de fechas únicas */}
           <section className="fechas">
-            <div>
-              DOM
-              <br />
-              15/06
-            </div>
-            <div>
-              LUN
-              <br />
-              16/06
-            </div>
-            <div>
-              MAR
-              <br />
-              17/06
-            </div>
-            <div>
-              MIÉ
-              <br />
-              18/06
+            {fechasDisponibles.map((fecha) => {
+              const date = new Date(fecha + "T00:00:00");
+              const dia = date
+                .toLocaleDateString("es-AR", { weekday: "short" })
+                .toUpperCase();
+              const fechaFormateada = date.toLocaleDateString("es-AR", {
+                day: "2-digit",
+                month: "2-digit",
+              });
+
+              return (
+                <div
+                  key={fecha}
+                  onClick={() => setFechaSeleccionada(fecha)}
+                  className={fechaSeleccionada === fecha ? "fecha-activa" : ""}
+                  style={{ cursor: "pointer" }}
+                >
+                  {dia}
+                  <br />
+                  {fechaFormateada}
+                </div>
+              );
+            })}
+          </section>
+
+          {/* Mostrar funciones del día */}
+          <section className="funciones">
+            <div className="funcion-card">
+              <h3 className="funcion-titulo">
+                {fechaSeleccionada ? (
+                  <>
+                    Funciones para el{" "}
+                    {(() => {
+                      const fecha = new Date(fechaSeleccionada + "T00:00:00");
+                      const dia = fecha.toLocaleDateString("es-AR", {
+                        weekday: "long",
+                      });
+                      return dia.charAt(0).toUpperCase() + dia.slice(1);
+                    })()}
+                  </>
+                ) : (
+                  "Seleccione un día"
+                )}
+              </h3>
+
+              {funcionesFiltradas.length > 0
+                ? funcionesFiltradas.map((f) => {
+                    const hora = new Date(f.fechaHora).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    });
+                    return (
+                      <div key={f.idFuncion} className="funcion-item">
+                        <div>
+                          <strong style={{ fontSize: "20px" }}>
+                            {f.formato}
+                          </strong>{" "}
+                          Castellano
+                        </div>
+                        <div className="horarios">{hora}</div>
+                      </div>
+                    );
+                  })
+                : ""}
             </div>
           </section>
 
-          <section className="funciones">
-            <div className="funcion-card">
-              <h3 className="funcion-titulo">Funciones para el Domingo 15</h3>
-              <div className="funcion-item">
-                <div>
-                  <strong style={{ fontSize: "20px" }}>2D</strong> Castellano
-                </div>
-                <div className="horarios">01:10</div>
-              </div>
-            </div>
-          </section>
           <br />
           <br />
         </div>
       </section>
-
-      {/* este boton debera agregar la pelicula al carrito segun su id - por el momento no sirve */}
-      {/* <button>Boton de añadir ticket</button> */}
     </main>
   );
 };

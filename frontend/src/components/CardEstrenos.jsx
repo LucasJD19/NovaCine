@@ -1,13 +1,11 @@
 import React from "react";
-import { useCarritoStore } from "../store/cartStore";
+import { useNavigate } from "react-router-dom";
 
-const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
-  const agregarAlCarrito = useCarritoStore((state) => state.agregarAlCarrito);
+const CardEstrenos = ({ id, titulo, imagen}) => {
+  const navigate = useNavigate();
 
-  const handleAgregar = () => {
-    const producto = { id, titulo, precio, tipo, imagen };
-    console.log("Agregando producto:", producto);
-    agregarAlCarrito(producto);
+  const irAFunciones = () => {
+    navigate(`/funciones/${id}`);
   };
 
   return (
@@ -19,7 +17,7 @@ const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
           maxWidth: "300px",
           height: "100%",
           borderRadius: "10px",
-          boxShadow: "2px 2px 10px  rgba(255, 255, 255, 0.97)",
+          boxShadow: "2px 2px 10px rgba(255, 255, 255, 0.97)",
           backgroundColor: "black",
           border: "1px solid white",
           color: "white",
@@ -39,13 +37,12 @@ const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
         />
 
         <h5>{titulo}</h5>
-        <p>Precio: <strong>${precio}</strong> </p>
-        <button onClick={handleAgregar} className="btn btn-warning btn-sm">
-          <strong>Agregar al carrito</strong>
+        <button className="btn btn-warning btn-sm" onClick={irAFunciones}>
+          <strong>Ver Funciones</strong>
         </button>
       </div>
     </div>
   );
 };
 
-export default ProductoCard;
+export default CardEstrenos;
