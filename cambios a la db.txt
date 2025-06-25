@@ -1,0 +1,145 @@
+peliculas --> agregar trailer
+funciones --> agregar columna de idioma (español o subtitulado unicamente)
+funciones --> formato quitar "subtitulada" como formato. Solo debe ser 2d y 3d
+puntos ya no será necesario
+no existirán descuentos
+provincias --> agregar tucuman como provincia
+sucursales --> agregar una sucursal de tucuman
+sucursal --> agregar columna direccion
+entrada --> precio debería ser el mismo para todo
+recompensas --> ELIMINAR TABLA RECOMPENSAS
+combos --> eliminar puntos
+
+
+
+-- CREACIÓN DE BASE DE DATOS CINE ACTUALIZADA
+DROP DATABASE IF EXISTS CineDB;
+CREATE DATABASE CineDB;
+USE CineDB;
+
+-- Tabla de provincias
+CREATE TABLE provincias (
+    idProvincia INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    direccion VARCHAR(255)
+);
+
+-- Tabla de sucursales
+CREATE TABLE sucursales (
+    idSucursal INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    direccion VARCHAR(255),
+    idProvincia INT,
+    FOREIGN KEY (idProvincia) REFERENCES provincias(idProvincia)
+);
+
+-- Tabla de salas
+CREATE TABLE salas (
+    idSala INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    capacidad INT NOT NULL,
+    idSucursal INT,
+    FOREIGN KEY (idSucursal) REFERENCES sucursales(idSucursal)
+);
+
+-- Tabla de películas
+CREATE TABLE peliculas (
+    idPelicula INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    duracion INT,
+    clasificacion VARCHAR(50),
+    imagen TEXT,
+    imagen_panoramica TEXT,
+    trailer TEXT
+);
+
+-- Tabla de funciones
+CREATE TABLE funciones (
+    idFuncion INT AUTO_INCREMENT PRIMARY KEY,
+    idSala INT,
+    idPelicula INT,
+    fechaHora DATETIME,
+    formato ENUM('2D', '3D'),
+    idioma ENUM('español', 'subtitulada'),
+    FOREIGN KEY (idSala) REFERENCES salas(idSala),
+    FOREIGN KEY (idPelicula) REFERENCES peliculas(idPelicula)
+);
+
+-- Tabla de usuarios
+CREATE TABLE usuarios (
+    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    contraseña VARCHAR(100),
+    rol ENUM('cliente', 'admin', 'empleado') DEFAULT 'cliente'
+);
+
+-- Tabla de productos
+CREATE TABLE productos (
+    idProducto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    descripcion VARCHAR(255),
+    precio DECIMAL(10,2),
+    stock INT
+);
+
+-- Tabla de combos
+CREATE TABLE combos (
+    idCombo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    descripcion VARCHAR(255),
+    precio DECIMAL(10,2)
+);
+
+-- Relación Combo - Producto
+CREATE TABLE combo_producto (
+    idComboProducto INT AUTO_INCREMENT PRIMARY KEY,
+    idCombo INT,
+    idProducto INT,
+    cantidad INT,
+    FOREIGN KEY (idCombo) REFERENCES combos(idCombo),
+    FOREIGN KEY (idProducto) REFERENCES productos(idProducto)
+);
+
+-- Tabla de entradas (boletos)
+CREATE TABLE entradas (
+    idEntrada INT AUTO_INCREMENT PRIMARY KEY,
+    idUsuario INT,
+    idFuncion INT,
+    precio DECIMAL(10,2),
+    numeroAsiento INT,
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario),
+    FOREIGN KEY (idFuncion) REFERENCES funciones(idFuncion)
+);
+
+-- Tabla de carrito
+CREATE TABLE carrito (
+    idCarrito INT AUTO_INCREMENT PRIMARY KEY,
+    idUsuario INT,
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario)
+);
+
+-- Ítems del carrito
+CREATE TABLE carrito_items (
+    idItem INT AUTO_INCREMENT PRIMARY KEY,
+    idCarrito INT,
+    tipo ENUM('entrada', 'producto', 'combo'),
+    idReferencia INT,
+    cantidad INT,
+    FOREIGN KEY (idCarrito) REFERENCES carrito(idCarrito)
+);
+
+-- Tabla de pagos simulados
+CREATE TABLE pagos (
+    idPago INT AUTO_INCREMENT PRIMARY KEY,
+    idUsuario INT,
+    total DECIMAL(10,2),
+    fechaPago DATETIME,
+    tarjeta_nombre VARCHAR(100),
+    tarjeta_numero VARCHAR(20),
+    tarjeta_vencimiento VARCHAR(7),
+    tarjeta_cvv VARCHAR(5),
+    FOREIGN KEY (idUsuario) REFERENCES usuarios(idUsuario)
+);

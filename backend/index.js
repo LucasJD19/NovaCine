@@ -8,6 +8,8 @@ const usuariosRoutes = require("./routes/usuarios.routes"); // Import de rutas u
 const productosRoutes = require('./routes/productos.routes'); // Import de rutas productos 
 const provinciasRoutes = require('./routes/provincias.routes');
 const funcionesRoutes = require("./routes/funciones.routes");
+const salasRoutes = require('./routes/salas.routes');
+const sucursalesRoutes = require('./routes/sucursales.routes');
 
 
 // Configuracion de Express y otras herramientas
@@ -27,6 +29,8 @@ app.use("/api/usuarios", usuariosRoutes);
 app.use("/api/productos", productosRoutes);
 app.use("/api/provincias", provinciasRoutes);
 app.use("/api/funciones", funcionesRoutes);
+app.use("/api/salas", salasRoutes);
+app.use("/api/sucursales", sucursalesRoutes);
 
 
 // Servidor escucha en el puerto definido en .env o 8000 por defecto
