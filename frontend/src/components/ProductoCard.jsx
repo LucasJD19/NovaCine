@@ -38,8 +38,9 @@ const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
         />
 
         <h5>{titulo}</h5>
+        {tipo !== "boleto" && <p>Precio: <strong>${precio}</strong> </p>}
         <button onClick={handleAgregar} className="btn btn-warning btn-sm">
-          {tipo ===  "boleto" ? "Ver Funciones" : "Agregar al carrito" }
+          {tipo === "boleto" ? "Ver Funciones" : "Agregar al carrito"}
         </button>
       </div>
     </div>
