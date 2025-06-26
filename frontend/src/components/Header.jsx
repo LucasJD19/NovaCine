@@ -1,14 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/AuthStore";
 import "../styles/Header.css";
 
 const Header = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const navigate = useNavigate();
+  const { user, logout } = useAuthStore();
   // Variable temporal para la cantidad de items en el carrito
   const cartCount = 0;
 
   const handleNavCollapse = () => {
     setIsNavCollapsed(!isNavCollapsed);
+  };
+  const handleAuthClick = () => {
+    if (user) {
+      logout();
+      navigate("/login");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -37,6 +48,10 @@ const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
+          {user && (
+            <span className="text-white me-3 fw-bold">Hola, {user.nombre}</span>
+          )}
+
           <Link
             to="/carrito"
             className="btn btn-warning btn-circle position-relative"
@@ -58,16 +73,17 @@ const Header = () => {
         id="navbarNav"
       >
         <ul className="navbar-nav mx-auto align-items-center">
-          <li className="nav-item">
+          {/* lo dejo comentado por si hay que activarlo para terminar lo que falta */}
+          {/* <li className="nav-item">
             <Link to="/admin" className="nav-link">
               Admin
             </Link>
-          </li>
-          <li className="nav-item">
+          </li> */}
+          {/* <li className="nav-item">
             <Link to="/empleado" className="nav-link">
               Empleado
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link to="/" className="nav-link">
               Inicio
@@ -83,10 +99,36 @@ const Header = () => {
               Tienda
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to="/login" className="nav-link">
               Login
             </Link>
+          </li> */}
+          <li>
+            <button
+              onClick={handleAuthClick}
+              style={{
+                backgroundColor: "#f1c40f",
+                border: "none",
+                color: "#fff",
+                padding: "10px 25px",
+                minWidth: "100px",
+                whiteSpace: "nowrap",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                fontSize: "16px",
+                transition: "background-color 0.3s ease",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#d4ac0d")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#f1c40f")
+              }
+            >
+              {user ? "Log Out" : "Log In"}
+            </button>
           </li>
         </ul>
       </div>
