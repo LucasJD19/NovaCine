@@ -33,14 +33,14 @@ const Carrito = () => {
     return Array.from(butacas);
   }
 
-  // Maneja el pago, pide datos y muestra SweetAlert con detalle
+  // Maneja el pago, pide datos y muestra
   const handlePago = async (e) => {
     e.preventDefault();
 
     setLoading(true);
 
     try {
-      // Traer salas y funciones desde backend
+      // Traer salas y funciones
       const [resSalas, resFunciones] = await Promise.all([
         fetch("http://localhost:8000/api/salas"),
         fetch("http://localhost:8000/api/funciones"),
@@ -138,7 +138,6 @@ const Carrito = () => {
       },
       });
 
-      // Opcional: vaciar carrito o cerrar formulario
       setMostrarFormulario(false);
       vaciarCarrito();
     } catch (error) {
