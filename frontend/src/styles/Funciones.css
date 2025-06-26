@@ -1,28 +1,32 @@
 .funciones-container {
-  padding: 60px;
-  text-align: start;
-  padding-bottom: 0;
+  padding: 40px 20px;
   background-color: #121212;
+  box-sizing: border-box;
 }
 
+/* Sección superior: poster e info */
 .top-section {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
 }
 
+/* Poster + texto */
 .poster-info {
   flex: 1;
-  min-width: 300px;
+  min-width: 280px;
   text-align: start;
 }
 
 .poster {
   width: 100%;
   max-width: 500px;
-  height: 500px;
+  height: auto;
   border-radius: 10px;
+  object-fit: cover;
+  display: block;
   margin: auto;
 }
 
@@ -35,35 +39,53 @@
   color: #999;
 }
 
+/* Trailer + aviso */
 .right-section {
   flex: 2;
-  min-width: 400px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+}
+
+/* Trailer */
+.trailer-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 .trailer-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  border-radius: 10px;
+  height: 100%;
+  border: 0;
 }
 
 .aviso {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   background-color: #1e1e1e;
-  padding: 10px;
+  padding: 12px;
   border-radius: 5px;
   color: #ffffff;
   border: 1px solid rgb(183, 183, 183);
-  overflow: hidden;
   width: 100%;
 }
 
+/* Fechas */
 .fechas {
   display: flex;
   gap: 10px;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .fechas div {
@@ -74,12 +96,15 @@
   text-align: center;
   cursor: pointer;
   color: black;
+  min-width: 80px;
 }
 
+/* Funciones */
 .funciones {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 20px;
+  width: 100%;
 }
 
 .funcion-card {
@@ -88,6 +113,7 @@
   border-radius: 10px;
   overflow: hidden;
   width: 100%;
+  max-width: 800px;
 }
 
 .funcion-titulo {
@@ -107,6 +133,7 @@
   background-color: transparent;
 }
 
+/* Horarios */
 .horarios {
   padding: 6px 12px;
   border: 1px solid white;
@@ -115,6 +142,7 @@
   background-color: transparent;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .horarios:hover {
@@ -122,3 +150,28 @@
   color: black;
 }
 
+.swal2-popup.mi-popup {
+  background: #121212;
+  color: #fff;
+  border-radius: 15px;
+}
+
+.swal2-title.mi-titulo {
+  color: #f1c40f;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.swal2-confirm.mi-confirmar {
+  background-color: green !important;
+  color: white !important;
+  padding: 8px 20px;
+  border-radius: 10px;
+}
+
+.swal2-cancel.mi-cancelar {
+  background-color: #fe0303 !important;
+  color: white !important;
+  padding: 8px 20px;
+  border-radius: 10px;
+}

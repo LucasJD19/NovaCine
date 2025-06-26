@@ -1,5 +1,7 @@
 import React from "react";
 import { useCarritoStore } from "../store/cartStore";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/dist/sweetalert2.css";
 
 const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
   const agregarAlCarrito = useCarritoStore((state) => state.agregarAlCarrito);
@@ -8,6 +10,19 @@ const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
     const producto = { id, titulo, precio, tipo, imagen };
     console.log("Agregando producto:", producto);
     agregarAlCarrito(producto);
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: `${titulo} Agregado al Carrito`,
+      showConfirmButton: false,
+      timer: 1500,
+      customClass: {
+        popup: "mi-popup",
+        title: "mi-titulo",
+        confirmButton: "mi-confirmar",
+        cancelButton: "mi-cancelar",
+      },
+    });
   };
 
   return (
@@ -39,7 +54,9 @@ const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
         />
 
         <h5>{titulo}</h5>
-        <p>Precio: <strong>${precio}</strong> </p>
+        <p>
+          Precio: <strong>${precio}</strong>{" "}
+        </p>
         <button onClick={handleAgregar} className="btn btn-warning btn-sm">
           <strong>Agregar al carrito</strong>
         </button>

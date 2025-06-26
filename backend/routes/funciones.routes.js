@@ -8,4 +8,6 @@ router.get("/", funcionesController.obtenerFunciones);
 // Obtener funciones por ID de película
 router.get("/pelicula/:idPelicula", funcionesController.obtenerFuncionesPorPelicula);
 
+
+
 module.exports = router;
