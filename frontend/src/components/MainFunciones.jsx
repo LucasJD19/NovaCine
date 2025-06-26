@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useCarritoStore } from "../store/cartStore";
 import "../styles/Funciones.css";
 
 const MainFunciones = () => {
@@ -7,6 +9,8 @@ const MainFunciones = () => {
   const [pelicula, setPelicula] = useState(null);
   const [funciones, setFunciones] = useState([]);
   const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
+
+  const agregarAlCarrito = useCarritoStore((state) => state.agregarAlCarrito);
 
   const getFechaUTC = (fechaHora) => {
     const date = new Date(fechaHora);
@@ -36,17 +40,74 @@ const MainFunciones = () => {
 
   if (!pelicula) return <p>Cargando película...</p>;
 
-  //fechas únicas sin repetir y ordenadas
   const fechasDisponibles = Array.from(
     new Set(funciones.map((f) => getFechaUTC(f.fechaHora)))
   ).sort((a, b) => new Date(a) - new Date(b));
 
-  //Filtrar funciones por fecha seleccionada y ordenarlas por hora
   const funcionesFiltradas = fechaSeleccionada
     ? funciones
         .filter((f) => getFechaUTC(f.fechaHora) === fechaSeleccionada)
         .sort((a, b) => new Date(a.fechaHora) - new Date(b.fechaHora))
     : [];
+
+  const getEmbedUrl = (url) => {
+    if (!url.includes("watch?v=")) return url;
+    const videoId = new URL(url).searchParams.get("v");
+    return `https://www.youtube.com/embed/${videoId}`;
+  };
+
+  const handleSeleccionarFuncion = (f) => {
+    const hora = new Date(f.fechaHora).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const dia = new Date(f.fechaHora).toLocaleDateString("es-AR", {
+      weekday: "long",
+      day: "2-digit",
+      month: "2-digit",
+    });
+
+    Swal.fire({
+      title: "Tu selección:",
+      html: `
+        <strong>${pelicula.titulo}</strong><br>
+        ${dia.toUpperCase()} ${hora} Hs<br>
+        ${f.formato} ${f.idioma.toUpperCase()}
+      `,
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+      cancelButtonText: "Cancelar",
+      customClass: {
+        popup: "mi-popup",
+        title: "mi-titulo",
+        confirmButton: "mi-confirmar",
+        cancelButton: "mi-cancelar",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        agregarAlCarrito({
+          id: pelicula.idPelicula,
+          titulo: pelicula.titulo,
+          precio: f.precio,
+          imagen: pelicula.imagen,
+          cantidad: 1,
+        });
+
+        Swal.fire({
+          title: "Agregado al carrito",
+          icon: "success",
+          timer: 1200,
+          showConfirmButton: false,
+          customClass: {
+            popup: "mi-popup",
+            title: "mi-titulo",
+            confirmButton: "mi-confirmar",
+            cancelButton: "mi-cancelar",
+          },
+        });
+      }
+    });
+  };
 
   return (
     <main className="funciones-container">
@@ -54,11 +115,11 @@ const MainFunciones = () => {
         <div className="poster-info">
           <img
             src={pelicula.imagen}
-            alt={`Poster de ${pelicula.nombre}`}
+            alt={`Poster de ${pelicula.titulo}`}
             className="poster"
           />
           <div className="info">
-            <h2>{pelicula.nombre}</h2>
+            <h2>{pelicula.titulo}</h2>
             <p>Duración: {pelicula.duracion} Minutos</p>
             <p>Clasificación: {pelicula.clasificacion}</p>
             <p className="descripcion">{pelicula.descripcion}</p>
@@ -67,7 +128,18 @@ const MainFunciones = () => {
 
         <div className="right-section">
           <div className="trailer-container">
-            <p>ACA VA EL TRAILERR</p>
+            {pelicula.trailer ? (
+              <iframe
+                src={getEmbedUrl(pelicula.trailer)}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <p>No hay tráiler disponible</p>
+            )}
           </div>
 
           <div className="aviso">
@@ -125,25 +197,29 @@ const MainFunciones = () => {
                 )}
               </h3>
 
-              {funcionesFiltradas.length > 0
-                ? funcionesFiltradas.map((f) => {
-                    const hora = new Date(f.fechaHora).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    });
-                    return (
-                      <div key={f.idFuncion} className="funcion-item">
-                        <div>
-                          <strong style={{ fontSize: "20px" }}>
-                            {f.formato}
-                          </strong>{" "}
-                          Castellano
-                        </div>
-                        <div className="horarios">{hora}</div>
+              {funcionesFiltradas.length > 0 &&
+                funcionesFiltradas.map((f) => {
+                  const hora = new Date(f.fechaHora).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  });
+                  return (
+                    <div key={f.idFuncion} className="funcion-item">
+                      <div>
+                        <strong style={{ fontSize: "20px" }}>
+                          {f.formato}
+                        </strong>{" "}
+                        {f.idioma.toUpperCase()}
                       </div>
-                    );
-                  })
-                : ""}
+                      <div
+                        className="horarios"
+                        onClick={() => handleSeleccionarFuncion(f)}
+                      >
+                        {hora}
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </section>
 

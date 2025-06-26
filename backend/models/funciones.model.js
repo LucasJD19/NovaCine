@@ -3,7 +3,7 @@ const db = require("../config/db");
 // Obtener todas las funciones
 exports.obtenerTodas = (callback) => {
   const sql = `
-    SELECT f.*, p.titulo, s.nombre AS sala, su.nombre AS sucursal
+    SELECT f.*, p.titulo, s.nombre AS sala, su.nombre AS sucursal, f.idioma, f.precio
     FROM funciones f
     JOIN peliculas p ON f.idPelicula = p.idPelicula
     JOIN salas s ON f.idSala = s.idSala
@@ -15,7 +15,7 @@ exports.obtenerTodas = (callback) => {
 // Obtener funciones por id de película
 exports.obtenerPorPelicula = (idPelicula, callback) => {
   const sql = `
-    SELECT f.idFuncion, f.fechaHora, f.formato, s.nombre AS sala, su.nombre AS sucursal
+    SELECT f.idFuncion, f.fechaHora, f.formato, s.nombre AS sala, su.nombre AS sucursal, f.idioma, f.precio
     FROM funciones f
     JOIN salas s ON f.idSala = s.idSala
     JOIN sucursales su ON s.idSucursal = su.idSucursal

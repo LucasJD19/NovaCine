@@ -11,6 +11,7 @@ const Carrusel = () => {
       const filtradas = data.filter(
         (p) => p.imagen_panoramica && p.imagen_panoramica.trim() !== ''
       );
+      console.log(data);
       setPeliculas(filtradas);
     });
   }, []);
@@ -44,6 +45,7 @@ const Carrusel = () => {
 
       <div className="carousel-inner h-100">
         {peliculas.map((pelicula, index) => (
+         
           <div
             key={pelicula.id || index}
             className={`carousel-item h-100 ${index === 0 ? 'active' : ''}`}
