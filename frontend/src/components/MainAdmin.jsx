@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import MostrarPelicula from './MostrarPelicula';
 import EditarPelicula from './EditarPelicula';
 import AgregarPelicula from './AgregarPelicula';
+import MostrarProducto from './MostrarProducto';
+import AgregarProducto from './AgregarProducto';
+import EditarProducto from './EditarProducto';
 import axios from "axios"
 import "../styles/crud.css"
 
@@ -9,11 +12,13 @@ import "../styles/crud.css"
 const MainAdmin = () => {
 
     const [peliculas, setPeliculas] = useState([]);
-    const [productos, setProductos] = useState([]);
     const [peliculaSeleccionada, setPeliculaSeleccionada] = useState(null);
     const [peliculaEnEdicion, setPeliculaEnEdicion] = useState(null);
     const [agregandoPelicula, setAgregandoPelicula] = useState(false);
-
+    const [productos, setProductos] = useState([]);
+    const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+    const [productoEnEdicion, setProductoEnEdicion] = useState(null);
+    const [agregandoProducto, setAgregandoProducto] = useState(false);
 
     const handleAgregarPelicula = () => {
         setPeliculaSeleccionada(null);
@@ -27,6 +32,7 @@ const MainAdmin = () => {
             const res = await axios.get("http://localhost:8000/api/peliculas");
             setPeliculas(res.data);
             setAgregandoPelicula(false);
+            alert("Pelicula agregada!")
         } catch (error) {
             console.error("Error al agregar pelicula ", error);
             alert("No se pudo agregar la pelicula.")
@@ -61,24 +67,53 @@ const MainAdmin = () => {
         try {
             await axios.delete(`http://localhost:8000/api/peliculas/${id}`);
             setPeliculas(peliculas.filter(p => p.idPelicula !== id));
+            alert("Pelicula eliminada")
         } catch (error) {
             console.error(error);
             alert("Error al intentar eliminar la pelicula")
         }
     }
 
-
     const handleAgregarProducto = () => {
-
+        setProductoSeleccionado(null);
+        setProductoEnEdicion(null);
+        setAgregandoProducto(true)
     }
 
-    const handleVerProducto = () => {
-
+    const handleGuardarNuevoProducto = async (nuevoProducto) => {
+        try {
+            await axios.post("http://localhost:8000/api/productos", nuevoProducto);
+            const res = await axios.get("http://localhost:8000/api/productos");
+            setProductos(res.data);
+            setAgregandoProducto(false);
+            alert("Producto agregado!")
+        } catch (error) {
+            console.error("Error al agregar producto ", error);
+            alert("No se pudo agregar el producto.")
+        }
     }
 
-    const handleEditarProducto = () => {
+    const handleVerProducto = (producto) => {
+        setProductoEnEdicion(null);
+        setProductoSeleccionado(producto);
+    };
 
+    const handleEditarProducto = (producto) => {
+        setProductoSeleccionado(null)
+        setProductoEnEdicion(producto)
     }
+
+    const handleGuardarProducto = async (id, datosActualizados) => {
+        try {
+            await axios.put(`http://localhost:8000/api/productos/${id}`, datosActualizados);
+            const res = await axios.get("http://localhost:8000/api/productos");
+            setProductos(res.data);
+            setProductoEnEdicion(null);
+        } catch (error) {
+            console.error("Error al guardar los cambios:", error);
+            alert("No se pudo guardar el producto.");
+        }
+    };
 
     const handleEliminarProducto = async (id) => {
         const confirm = window.confirm("Seguro que desea eliminar este producto?")
@@ -91,7 +126,6 @@ const MainAdmin = () => {
             alert("Error al intentar eliminar el producto")
         }
     }
-
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/peliculas")
@@ -126,6 +160,25 @@ const MainAdmin = () => {
                     onGuardar={handleGuardarNuevaPelicula}
                 />
             )}
+            {productoSeleccionado && !productoEnEdicion && (
+                <MostrarProducto
+                    producto={productoSeleccionado}
+                    onClose={() => setProductoSeleccionado(null)}
+                />
+            )}
+            {productoEnEdicion && (
+                <EditarProducto
+                    producto={productoEnEdicion}
+                    onClose={() => setProductoEnEdicion(null)}
+                    onGuardar={handleGuardarProducto}
+                />
+            )}
+            {agregandoProducto && (
+                <AgregarProducto
+                    onClose={() => setAgregandoProducto(false)}
+                    onGuardar={handleGuardarNuevoProducto}
+                />
+            )}
             <div className="crud-title">
                 <h2>Peliculas</h2>
                 <button type="button" className="btn btn-outline-success" onClick={handleAgregarPelicula}>Agregar <i className="bi bi-plus-circle"></i></button>
@@ -138,7 +191,6 @@ const MainAdmin = () => {
                         <th scope="col" className='col-2'>Descripcion</th>
                         <th scope="col" className='col-2'>Duracion</th>
                         <th scope="col" className='col-2'>Clasificacion</th>
-                        {/* <th scope="col" className='col-2'>Genero</th> */}
                         <th scope='col' className='col-2'>Acciones</th>
                     </tr>
                 </thead>
@@ -150,8 +202,6 @@ const MainAdmin = () => {
                             <td>{pelicula.descripcion}</td>
                             <td>{pelicula.duracion} min</td>
                             <td>{pelicula.clasificacion}</td>
-                            {/* al parecer las pelculas en la db no tienen genero */}
-                            {/* <td>{pelicula.genero}</td> */}
                             <td>
                                 <button type="button" className="btn btn-outline-info" style={{ marginRight: "5px" }} onClick={() => handleVerPelicula(pelicula)}><i className="bi bi-eye"></i></button>
                                 <button type="button" className="btn btn-outline-warning" style={{ marginRight: "5px" }} onClick={() => handleEditarPelicula(pelicula)}><i className="bi bi-pencil"></i></button>
@@ -163,17 +213,19 @@ const MainAdmin = () => {
             </table> <br /> <br />
             <div className="crud-title">
                 <h2>Productos</h2>
-                <button type="button" className="btn btn-outline-success" onClick={handleAgregarProducto}>Agregar <i className="bi bi-plus-circle"></i></button>
+                <button type="button" className="btn btn-outline-success" onClick={handleAgregarProducto}>
+                    Agregar <i className="bi bi-plus-circle"></i>
+                </button>
             </div>
             <table className="table table-striped table-dark">
                 <thead>
                     <tr>
-                        <th scope="col" className='col-1'># ID</th>
-                        <th scope="col" className='col-2'>Nombre</th>
-                        <th scope="col" className='col-2'>Descripcion</th>
-                        <th scope="col" className='col-2'>Precio</th>
-                        <th scope="col" className='col-2'>Stock</th>
-                        <th scope='col' className='col-2'>Acciones</th>
+                        <th scope="col" className="col-1"># ID</th>
+                        <th scope="col" className="col-2">Nombre</th>
+                        <th scope="col" className="col-2">Descripcion</th>
+                        <th scope="col" className="col-2">Precio</th>
+                        <th scope="col" className="col-2">Stock</th>
+                        <th scope="col" className="col-2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -185,8 +237,8 @@ const MainAdmin = () => {
                             <td>${producto.precio}</td>
                             <td>{producto.stock}</td>
                             <td>
-                                <button type="button" className="btn btn-outline-info" style={{ marginRight: "5px" }} onClick={handleVerProducto}><i className="bi bi-eye"></i></button>
-                                <button type="button" className="btn btn-outline-warning" style={{ marginRight: "5px" }} onClick={handleEditarProducto}><i className="bi bi-pencil"></i></button>
+                                <button type="button" className="btn btn-outline-info" style={{ marginRight: "5px" }} onClick={() => handleVerProducto(producto)}><i className="bi bi-eye"></i></button>
+                                <button type="button" className="btn btn-outline-warning" style={{ marginRight: "5px" }} onClick={() => handleEditarProducto(producto)}><i className="bi bi-pencil"></i></button>
                                 <button type="button" className="btn btn-outline-danger" style={{ marginRight: "5px" }} onClick={() => handleEliminarProducto(producto.idProducto)}><i className="bi bi-trash"></i></button>
                             </td>
                         </tr>

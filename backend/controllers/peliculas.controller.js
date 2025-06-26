@@ -18,8 +18,14 @@ exports.obtenerPeliculaPorId = (req, res) => {
 
 exports.crearPelicula = (req, res) => {
   const nuevaPelicula = req.body;
+
+  console.log("PELÍCULA RECIBIDA:", nuevaPelicula);
+
   Peliculas.crear(nuevaPelicula, (err, resultado) => {
-    if (err) return res.status(500).json({ error: "Error al crear la película" });
+    if (err) {
+      console.error("Error en la consulta SQL:", err);
+      return res.status(500).json({ error: "Error al crear la película" });
+    }
     res.status(201).json({ mensaje: "Película creada correctamente", id: resultado.insertId });
   });
 };

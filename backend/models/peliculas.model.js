@@ -10,19 +10,21 @@ const Peliculas = {
   },
 
   crear: (pelicula, callback) => {
-    const { titulo, descripcion, genero, duracion, clasificacion, director, idioma, fechaEstreno, imagen } = pelicula;
+    const { titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer} = pelicula;
+    console.log("Insertando en DB:", titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer);
     db.query(
-      'INSERT INTO peliculas (titulo, descripcion, genero, duracion, clasificacion, director, idioma, fechaEstreno, imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [titulo, descripcion, genero, duracion, clasificacion, director, idioma, fechaEstreno, imagen],
+      'INSERT INTO peliculas (titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer],
       callback
     );
   },
 
   actualizar: (id, pelicula, callback) => {
-    const { titulo, descripcion, genero, duracion, clasificacion, director, idioma, fechaEstreno, imagen } = pelicula;
+    const { titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer} = pelicula;
+    console.log("Actualizando en DB:", titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer);
     db.query(
-      'UPDATE peliculas SET titulo = ?, descripcion = ?, genero = ?, duracion = ?, clasificacion = ?, director = ?, idioma = ?, fechaEstreno = ?, imagen = ? WHERE idPelicula = ?',
-      [titulo, descripcion, genero, duracion, clasificacion, director, idioma, fechaEstreno, imagen, id],
+      'UPDATE peliculas SET titulo = ?, descripcion = ?,  duracion = ?, clasificacion = ?, imagen = ? , imagen_panoramica = ? , trailer = ? WHERE idPelicula = ?',
+      [titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer,id],
       callback
     );
   },

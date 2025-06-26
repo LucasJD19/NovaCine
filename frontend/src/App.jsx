@@ -10,6 +10,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import "./App.css";
 import Admin from "./pages/Admin";
+import Empleado from "./pages/Empleado";
+import Error from "./pages/Error";
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/empleado" element={<Empleado />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </main>
       <Footer />

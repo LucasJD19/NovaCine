@@ -59,6 +59,16 @@ const Header = () => {
       >
         <ul className="navbar-nav mx-auto align-items-center">
           <li className="nav-item">
+            <Link to="/admin" className="nav-link">
+              Admin
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/empleado" className="nav-link">
+              Empleado
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link to="/" className="nav-link">
               Inicio
             </Link>
@@ -71,6 +81,11 @@ const Header = () => {
           <li className="nav-item">
             <Link to="/tienda" className="nav-link">
               Tienda
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/login" className="nav-link">
+              Login
             </Link>
           </li>
         </ul>

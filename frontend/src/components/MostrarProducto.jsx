@@ -1,26 +1,24 @@
-import ListGroup from 'react-bootstrap/ListGroup';
-import Card from 'react-bootstrap/Card';
+import { Modal, ListGroup, Card } from 'react-bootstrap';
 
-
-const MostrarProducto = () => {
+const MostrarProducto = ({ producto, onClose }) => {
+  if (!producto) return null;
   return (
-    <div>
-      <Card style={{ width: '18rem' }} className="bg-dark text-white text-center">
-        <Card.Img variant="top" src="../../public/images/Pochoclera.png" />
-        <Card.Body>
-          <Card.Title>Nombre</Card.Title>
-        </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroup.Item className="bg-secondary text-white">precio</ListGroup.Item>
-          <ListGroup.Item className="bg-secondary text-white">cantidad</ListGroup.Item>
-          <ListGroup.Item className="bg-secondary text-white">mas atributos</ListGroup.Item>
-        </ListGroup>
-        <Card.Body>
-          <button className="btn btn-outline-light">botón que hace algo</button>
-        </Card.Body>
-      </Card>
-      <button>Volver</button>
-    </div>
+    <Modal show={true} onHide={onClose} centered backdrop="static">
+      <Modal.Header closeButton className="bg-dark text-white">
+        <Modal.Title>#{producto.idProducto}: {producto.nombre}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="bg-dark text-white">
+        <Card className="bg-dark text-white text-center border-0">
+          <Card.Body>
+            <ListGroup variant="flush">
+              <ListGroup.Item className="bg-secondary text-white">Descripción: {producto.descripcion}</ListGroup.Item>
+              <ListGroup.Item className="bg-secondary text-white">Precio: ${producto.precio}</ListGroup.Item>
+              <ListGroup.Item className="bg-secondary text-white">Cantidad en stock: {producto.stock}</ListGroup.Item>
+            </ListGroup>
+          </Card.Body>
+        </Card>
+      </Modal.Body>
+    </Modal>
   )
 }
 

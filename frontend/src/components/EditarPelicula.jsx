@@ -2,25 +2,13 @@ import { useState, useEffect } from 'react'
 import { Card, Form, Button } from "react-bootstrap"
 
 const EditarPelicula = ({ pelicula, onClose, onGuardar }) => {
-
     const [titulo, setTitulo] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [duracion, setDuracion] = useState(0);
     const [clasificacion, setClasificacion] = useState("");
     const [imagen, setImagen] = useState("");
-    const [imagenPanoramica, setImagenPanoramica] = useState("");
-
-    const handleGuardar = () => {
-        const datosActualizados = {
-            titulo,
-            descripcion,
-            duracion,
-            clasificacion,
-            imagen,
-            imagenPanoramica: imagenPanoramica,
-        }
-        onGuardar(pelicula.idPelicula, datosActualizados)
-    }
+    const [imagen_panoramica, setImagen_panoramica] = useState("")
+    const [trailer, setTrailer] = useState("");
 
     useEffect(() => {
         if (pelicula) {
@@ -29,20 +17,49 @@ const EditarPelicula = ({ pelicula, onClose, onGuardar }) => {
             setDuracion(pelicula.duracion);
             setClasificacion(pelicula.clasificacion);
             setImagen(pelicula.imagen || "");
-            setImagenPanoramica(pelicula.imagenPanoramica || "");
+            setImagen_panoramica(pelicula.imagen_panoramica || "");
+            setTrailer(pelicula.trailer || "");
         }
-    }, [pelicula])
+    }, [pelicula]);
+
+    const handleGuardar = () => {
+        const noHayCambios =
+            titulo === pelicula.titulo &&
+            descripcion === pelicula.descripcion &&
+            duracion === pelicula.duracion &&
+            clasificacion === pelicula.clasificacion &&
+            imagen === (pelicula.imagen || "") &&
+            imagen_panoramica === (pelicula.imagen_panoramica || "") &&
+            trailer === (pelicula.trailer || "");
+
+        if (noHayCambios) {
+            alert("No se hicieron cambios");
+            onClose();
+            return;
+        }
+
+        const datosActualizados = {
+            titulo,
+            descripcion,
+            duracion,
+            clasificacion,
+            imagen,
+            imagen_panoramica,
+            trailer
+        };
+
+        onGuardar(pelicula.idPelicula, datosActualizados);
+        alert("Cambios realizados con éxito");
+    };
 
     useEffect(() => {
         document.body.style.overflow = "hidden";
         return () => {
             document.body.style.overflow = "auto";
-        }
+        };
     }, []);
 
-
     if (!pelicula) return null;
-
 
     return (
         <div className="modal-backdrop-custom">
@@ -76,8 +93,13 @@ const EditarPelicula = ({ pelicula, onClose, onGuardar }) => {
                         </Form.Group>
 
                         <Form.Group className="mb-2">
-                            <Form.Label>Imagen Panorámica</Form.Label>
-                            <Form.Control type="text" value={imagenPanoramica} onChange={(e) => setImagenPanoramica(e.target.value)} />
+                            <Form.Label>URL de Imagen Panorámica</Form.Label>
+                            <Form.Control type="text" value={imagen_panoramica} onChange={(e) => setImagen_panoramica(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group className="mb-2">
+                            <Form.Label>URL de Trailer</Form.Label>
+                            <Form.Control type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
                         </Form.Group>
                     </Form>
 
@@ -92,7 +114,7 @@ const EditarPelicula = ({ pelicula, onClose, onGuardar }) => {
                 </Card.Body>
             </Card>
         </div>
-    )
-}
+    );
+};
 
-export default EditarPelicula
+export default EditarPelicula;
