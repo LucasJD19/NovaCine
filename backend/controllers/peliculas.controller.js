@@ -50,7 +50,7 @@ exports.eliminarPelicula = (req, res) => {
 
 exports.buscarPorNombre = (req, res) => {
   const nombre = req.query.nombre;
-  console.log("Buscando película con nombre:", nombre); 
+  console.log("Buscando película con nombre:", nombre);
   if (!nombre)
     return res.status(400).json({ error: "Falta el parámetro nombre" });
 
@@ -62,4 +62,15 @@ exports.buscarPorNombre = (req, res) => {
 
     res.json(resultados);
   });
+
+  // llamada al SP para poder activar las peliculas si las mismas tienen funciones
+  exports.actualizarPeliculasActivas = (req, res) => {
+    db.query("CALL ActualizarPeliculasActivas()", (err, resultados) => {
+      if (err) {
+        console.error("Error al ejecutar el procedimiento:", err);
+        return res.status(500).json({ error: "Error al actualizar el estado de las películas" });
+      }
+      res.json({ mensaje: "Estado de películas actualizado correctamente" });
+    });
+  };
 };

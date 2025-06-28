@@ -8,5 +8,6 @@ router.get("/:id", peliculasController.obtenerPeliculaPorId);
 router.post("/", peliculasController.crearPelicula);
 router.put("/:id", peliculasController.actualizarPelicula);
 router.delete("/:id", peliculasController.eliminarPelicula);
+router.post("/actualizar-activas", peliculasController.actualizarPeliculasActivas); // ruta del SP activar pelis
 
 module.exports = router;
