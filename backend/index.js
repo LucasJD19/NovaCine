@@ -10,6 +10,7 @@ const provinciasRoutes = require('./routes/provincias.routes');
 const funcionesRoutes = require("./routes/funciones.routes");
 const salasRoutes = require('./routes/salas.routes');
 const sucursalesRoutes = require('./routes/sucursales.routes');
+const loginRoutes = require("./routes/login.routes");
 
 
 // Configuracion de Express y otras herramientas
@@ -31,6 +32,7 @@ app.use("/api/provincias", provinciasRoutes);
 app.use("/api/funciones", funcionesRoutes);
 app.use("/api/salas", salasRoutes);
 app.use("/api/sucursales", sucursalesRoutes);
+app.use("/api", loginRoutes);
 
 
 // Servidor escucha en el puerto definido en .env o 8000 por defecto

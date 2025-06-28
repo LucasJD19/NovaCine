@@ -111,9 +111,9 @@ const MainLogin = () => {
             <input
               type="password"
               className="form-control"
-              id="password"
-              name="password"
-              value={formData.password}
+              id="contraseña"
+              name="contraseña"
+              value={formData.contraseña}
               onChange={handleChange}
               placeholder="Ingresá tu contraseña"
               required
