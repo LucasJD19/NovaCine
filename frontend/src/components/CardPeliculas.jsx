@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getPeliculas } from "../data/db";
 import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "../styles/cardpeliculas.css";
 
 const CardPeliculas = () => {
   const [peliculas, setPeliculas] = useState([]);
@@ -22,25 +23,19 @@ const CardPeliculas = () => {
       {peliculas.map((pelicula) => (
         <div key={pelicula.idPelicula} className="col-12 col-sm-6 col-md-4 mb-4">
           <div
-            className="card bg-dark border-white h-100"
+            className="card bg-dark h-100 card-edit"
             style={{
               cursor: "pointer",
-              width: "100%",
+              width: "90%",
               height: "100%",
+              marginBottom: "20px"
             }}
             onClick={() => handleClick(pelicula.idPelicula)}
           >
             <img
               src={pelicula.imagen}
               className="card-img-top h-100"
-              alt={pelicula.titulo}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "fill",
-                borderRadius: "8px",
-                margin: "0px",
-              }}
+              alt={pelicula.titulo}             
             />
           </div>
         </div>

@@ -3,13 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
 import "../styles/Header.css";
 import BarraBusqueda from "./BarraBusqueda";
+import { useCarritoStore } from "../store/cartStore";
 
 const Header = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const navigate = useNavigate();
   const { user, logout } = useAuthStore();
-  // Variable temporal para la cantidad de items en el carrito
-  const cartCount = 0;
+
   // Función para manejar la búsqueda
   const handleBusqueda = (termino, tipo) => {
     console.log(`Buscando "${termino}" en ${tipo}`);
@@ -26,6 +26,10 @@ const Header = () => {
       navigate("/login");
     }
   };
+  const productos = useCarritoStore((state) => state.productos);
+
+  // Total de cantidad (por si hay repetidos con cantidad > 1)
+  const cantidadTotal = productos.reduce((acc, prod) => acc + prod.cantidad, 0);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
@@ -66,9 +70,9 @@ const Header = () => {
             className="btn btn-warning btn-circle position-relative"
           >
             <i className="bi bi-cart-fill fs-5"></i>
-            {cartCount > 0 && (
+            {cantidadTotal > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {cartCount}
+                {cantidadTotal}
                 <span className="visually-hidden">productos en carrito</span>
               </span>
             )}

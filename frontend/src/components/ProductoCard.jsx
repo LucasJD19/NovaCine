@@ -2,6 +2,8 @@ import React from "react";
 import { useCarritoStore } from "../store/cartStore";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/dist/sweetalert2.css";
+import "../styles/cardestrenos.css";
+
 
 const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
   const agregarAlCarrito = useCarritoStore((state) => state.agregarAlCarrito);

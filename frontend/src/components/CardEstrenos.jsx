@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/cardestrenos.css";
 
 const CardEstrenos = ({ id, titulo, imagen}) => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const CardEstrenos = ({ id, titulo, imagen}) => {
   return (
     <div className="col-6 col-md-3 mb-4 d-flex justify-content-center">
       <div
-        className="card p-3 text-center"
+        className="card p-3 text-center card-hover"
         style={{
           width: "100%",
           maxWidth: "300px",
