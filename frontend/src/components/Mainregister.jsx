@@ -8,8 +8,10 @@ const MainRegister = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    nombre: "",
+    apellido: "",
     email: "",
-    password: "",
+    contraseña: "",
     rol: "cliente",
   });
 
@@ -24,12 +26,15 @@ const MainRegister = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3000/api/register", formData);
+      await axios.post("http://localhost:8000/api/usuarios", formData);
 
       Swal.fire({
         icon: "success",
         title: "Registro exitoso",
         text: "Ya podés iniciar sesión con tu cuenta",
+        background: "#000",
+        color: "#fff",
+        confirmButtonColor: "#f1c40f",
       });
 
       navigate("/login");
@@ -39,6 +44,9 @@ const MainRegister = () => {
         icon: "error",
         title: "Error",
         text: "No se pudo registrar el usuario",
+        background: "#000",
+        color: "#fff",
+        confirmButtonColor: "#f1c40f",
       });
     }
   };
@@ -52,6 +60,32 @@ const MainRegister = () => {
         <h3 className="text-center mb-4 text-light">Registrate</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
+            <label htmlFor="nombre" className="form-label text-light">
+              Nombre
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="nombre"
+              name="nombre"
+              value={formData.nombre}
+              onChange={handleChange}
+              placeholder="Ingresá tu nombre"
+              required
+            />
+            <label htmlFor="apellido" className="form-label text-light">
+              Apellido
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="apellido"
+              name="apellido"
+              value={formData.apellido}
+              onChange={handleChange}
+              placeholder="Ingresá tu apellido"
+              required
+            />
             <label htmlFor="email" className="form-label text-light">
               Email
             </label>
@@ -67,21 +101,20 @@ const MainRegister = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label text-light">
+            <label htmlFor="contraseña" className="form-label text-light">
               Contraseña
             </label>
             <input
               type="password"
               className="form-control"
-              id="password"
-              name="password"
-              value={formData.password}
+              id="contraseña"
+              name="contraseña"
+              value={formData.contraseña}
               onChange={handleChange}
               placeholder="Ingresá tu contraseña"
               required
             />
           </div>
-
           <div className="d-grid gap-2">
             <button type="submit" className="btn btn-yellow mt-4">
               Registrarme

@@ -12,16 +12,16 @@ const Usuario = {
   crear: (usuario, callback) => {
     const { nombre, email, contraseña, rol } = usuario;
     db.query(
-      "INSERT INTO usuarios (nombre, email, contraseña, rol) VALUES (?, ?, ?, ?)",
-      [nombre, email, contraseña, rol || "cliente"],
+      "INSERT INTO usuarios (nombre, apellido, email, contraseña, rol) VALUES (?, ?, ?, ?, ?)",
+      [nombre, apellido, email, contraseña, rol || "cliente"],
       callback
     );
   },
 
   actualizar: (id, usuario, callback) => {
-    const { nombre, email, contraseña, rol } = usuario;
+    const { nombre, apellido, email, contraseña, rol } = usuario;
     db.query(
-      "UPDATE usuarios SET nombre = ?, email = ?, contraseña = ?, rol = ? WHERE idUsuario = ?",
+      "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, contraseña = ?, rol = ? WHERE idUsuario = ?",
       [nombre, email, contraseña, rol, id],
       callback
     );

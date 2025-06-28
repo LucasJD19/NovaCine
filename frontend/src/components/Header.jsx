@@ -10,7 +10,7 @@ const Header = () => {
   const { user, logout } = useAuthStore();
   // Variable temporal para la cantidad de items en el carrito
   const cartCount = 0;
-   // Función para manejar la búsqueda
+  // Función para manejar la búsqueda
   const handleBusqueda = (termino, tipo) => {
     console.log(`Buscando "${termino}" en ${tipo}`);
   };
@@ -40,7 +40,7 @@ const Header = () => {
           <span className="brand-name">NovaCine</span>
         </Link>
         {/* Barra de búsqueda */}
-      <BarraBusqueda onSearch={handleBusqueda}/>
+        <BarraBusqueda onSearch={handleBusqueda} />
         {/* Botón hamburguesa + Carrito */}
         <div className="d-flex align-items-center">
           <button
@@ -55,7 +55,10 @@ const Header = () => {
           </button>
 
           {user && (
-            <span className="text-white me-3 fw-bold">Hola, {user.nombre}</span>
+            <span className="text-white me-3 fw-bold">
+              {" "}
+              Bienvenido {user.nombre}
+            </span>
           )}
 
           <Link

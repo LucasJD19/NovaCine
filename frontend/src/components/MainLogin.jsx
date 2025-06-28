@@ -11,7 +11,7 @@ const MainLogin = () => {
 
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    contraseña: "",
   });
 
   const handleChange = (e) => {
@@ -21,58 +21,48 @@ const MainLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.email === "admin@mail.com" && formData.password === "admin") {
-      const adminUser = {
-        email: "admin@mail.com",
-        rol: "admin",
-        nombre: "Administrador",
-      };
-      login(adminUser);
-      Swal.fire({
-        title: "Bienvenido Administrador",
-        text: "Sesión iniciada con éxito",
-        icon: "success",
-        background: "#000",
-        color: "#fff",
-        confirmButtonColor: "#f1c40f",
-      });
-      navigate("/admin");
-      return;
-    }
-
-    if (
-      formData.email === "empleado@mail.com" &&
-      formData.password === "empleado"
-    ) {
-      const empleadoUser = {
-        email: "empleado@mail.com",
-        rol: "empleado",
-        nombre: "Empleado",
-      };
-      login(empleadoUser);
-      Swal.fire({
-        title: "Bienvenido Empleado",
-        text: "Sesión iniciada con éxito",
-        icon: "success",
-        background: "#000",
-        color: "#fff",
-        confirmButtonColor: "#f1c40f",
-      });
-      navigate("/empleado");
-      return;
-    }
-
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/login",
+        "http://localhost:8000/api/login",
         formData
       );
 
+      if (!data.user) {
+        Swal.fire({
+          title: "Error",
+          text: "Credenciales inválidas",
+          icon: "error",
+          background: "#000",
+          color: "#fff",
+          confirmButtonColor: "#e74c3c",
+        });
+        return;
+      }
+
       login(data.user);
 
-      if (data.user.rol === "cliente") {
-        Swal.fire("¡Bienvenido!", `Hola ${data.user.nombre}`, "success");
-        navigate("/home");
+      Swal.fire({
+        title: `¡Bienvenido!`,
+        text: `Hola ${data.user.nombre}`,
+        icon: "success",
+        background: "#000",
+        color: "#fff",
+        confirmButtonColor: "#f1c40f",
+      });
+
+      // Redirige según el rol del usuario
+      switch (data.user.rol) {
+        case "admin":
+          navigate("/admin");
+          break;
+        case "empleado":
+          navigate("/empleado");
+          break;
+        case "cliente":
+          navigate("/home");
+          break;
+        default:
+          Swal.fire("Error", "Rol desconocido", "error");
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
