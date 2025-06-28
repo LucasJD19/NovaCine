@@ -16,6 +16,7 @@ exports.obtenerPeliculaPorId = (req, res) => {
   });
 };
 
+
 exports.crearPelicula = (req, res) => {
   const nuevaPelicula = req.body;
 
@@ -44,5 +45,21 @@ exports.eliminarPelicula = (req, res) => {
   Peliculas.eliminar(id, (err) => {
     if (err) return res.status(500).json({ error: "Error al eliminar la película" });
     res.json({ mensaje: "Película eliminada correctamente" });
+  });
+};
+
+exports.buscarPorNombre = (req, res) => {
+  const nombre = req.query.nombre;
+  console.log("Buscando película con nombre:", nombre); 
+  if (!nombre)
+    return res.status(400).json({ error: "Falta el parámetro nombre" });
+
+  Peliculas.buscarPorNombre(nombre, (err, resultados) => {
+    if (err)
+      return res.status(500).json({ error: "Error en la base de datos" });
+    if (resultados.length === 0)
+      return res.status(404).json({ error: "Película no encontrada" });
+
+    res.json(resultados);
   });
 };

@@ -37,7 +37,16 @@ const Producto = {
 
   aumentarStock: (id, cantidad, callback) => {
     db.query("UPDATE productos SET stock = stock + ? WHERE idProducto = ?", [cantidad, id], callback);
+  },
+
+  buscarPorNombre: (nombre, callback) => {
+    db.query(
+      "SELECT * FROM productos WHERE LOWER(nombre) LIKE ?",
+      [`%${nombre.toLowerCase()}%`],
+      callback
+    );
   }
 };
+
 
 module.exports = Producto;

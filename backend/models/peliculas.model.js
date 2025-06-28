@@ -31,7 +31,16 @@ const Peliculas = {
 
   eliminar: (id, callback) => {
     db.query('DELETE FROM peliculas WHERE idPelicula = ?', [id], callback);
-  }
+  },
+  buscarPorNombre: (nombre, callback) => {
+    db.query(
+      "SELECT * FROM peliculas WHERE LOWER(titulo) LIKE ?",
+      [`%${nombre.toLowerCase()}%`],
+      callback
+    );
+  },
 };
+
+  
 
 module.exports = Peliculas;

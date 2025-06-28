@@ -90,3 +90,15 @@ exports.aumentarStockProducto = (req, res) => {
     res.json({ mensaje: "Stock del producto aumentado correctamente" });
   });
 };
+
+exports.buscarPorNombre = (req, res) => {
+  const { nombre } = req.query;
+  if (!nombre)
+    return res.status(400).json({ error: "Falta el parámetro nombre" });
+
+  Producto.buscarPorNombre(nombre, (err, resultados) => {
+    if (err)
+      return res.status(500).json({ error: "Error en la base de datos" });
+    res.json(resultados);
+  });
+};

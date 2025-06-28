@@ -12,6 +12,7 @@ import "./App.css";
 import Admin from "./pages/Admin";
 import Empleado from "./pages/Empleado";
 import Error from "./pages/Error";
+import Busqueda from "./pages/Busqueda";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/admin" element={<Admin />} />
           <Route path="/empleado" element={<Empleado />} />
           <Route path="*" element={<Error />} />
+          <Route path="/busqueda" element={<Busqueda/>} />
         </Routes>
       </main>
       <Footer />

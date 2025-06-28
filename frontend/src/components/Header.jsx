@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
 import "../styles/Header.css";
+import BarraBusqueda from "./BarraBusqueda";
 
 const Header = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -9,6 +10,10 @@ const Header = () => {
   const { user, logout } = useAuthStore();
   // Variable temporal para la cantidad de items en el carrito
   const cartCount = 0;
+   // Función para manejar la búsqueda
+  const handleBusqueda = (termino, tipo) => {
+    console.log(`Buscando "${termino}" en ${tipo}`);
+  };
 
   const handleNavCollapse = () => {
     setIsNavCollapsed(!isNavCollapsed);
@@ -34,7 +39,8 @@ const Header = () => {
           />
           <span className="brand-name">NovaCine</span>
         </Link>
-
+        {/* Barra de búsqueda */}
+      <BarraBusqueda onSearch={handleBusqueda}/>
         {/* Botón hamburguesa + Carrito */}
         <div className="d-flex align-items-center">
           <button
