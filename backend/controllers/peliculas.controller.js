@@ -62,9 +62,11 @@ exports.buscarPorNombre = (req, res) => {
 
     res.json(resultados);
   });
+};
 
-  // llamada al SP para poder activar las peliculas si las mismas tienen funciones
+// llamada al SP para poder activar las peliculas si las mismas tienen funciones
   exports.actualizarPeliculasActivas = (req, res) => {
+    const db = require("../config/db");
     db.query("CALL ActualizarPeliculasActivas()", (err, resultados) => {
       if (err) {
         console.error("Error al ejecutar el procedimiento:", err);
@@ -73,4 +75,3 @@ exports.buscarPorNombre = (req, res) => {
       res.json({ mensaje: "Estado de películas actualizado correctamente" });
     });
   };
-};

@@ -10,7 +10,7 @@ const Peliculas = {
   },
 
   crear: (pelicula, callback) => {
-    const { titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer} = pelicula;
+    const { titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer } = pelicula;
     console.log("Insertando en DB:", titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer);
     db.query(
       'INSERT INTO peliculas (titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer) VALUES (?, ?, ?, ?, ?, ?, ?)',
@@ -20,11 +20,11 @@ const Peliculas = {
   },
 
   actualizar: (id, pelicula, callback) => {
-    const { titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer} = pelicula;
+    const { titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer } = pelicula;
     console.log("Actualizando en DB:", titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer);
     db.query(
       'UPDATE peliculas SET titulo = ?, descripcion = ?,  duracion = ?, clasificacion = ?, imagen = ? , imagen_panoramica = ? , trailer = ? WHERE idPelicula = ?',
-      [titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer,id],
+      [titulo, descripcion, duracion, clasificacion, imagen, imagen_panoramica, trailer, id],
       callback
     );
   },
@@ -39,8 +39,9 @@ const Peliculas = {
       callback
     );
   },
+
+  actualizarPeliculasActivas: (callback) => {
+    db.query('CALL actualizarPeliculasActivas()', callback);
+  } // callback del sp para activar pelis
 };
-
-  
-
 module.exports = Peliculas;
