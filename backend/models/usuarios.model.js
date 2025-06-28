@@ -10,7 +10,7 @@ const Usuario = {
   },
 
   crear: (usuario, callback) => {
-    const { nombre, apellido, email, contraseña, rol } = usuario;
+    const { nombre, email, contraseña, rol } = usuario;
     db.query(
       "INSERT INTO usuarios (nombre, apellido, email, contraseña, rol) VALUES (?, ?, ?, ?, ?)",
       [nombre, apellido, email, contraseña, rol || "cliente"],
