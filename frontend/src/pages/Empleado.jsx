@@ -1,10 +1,9 @@
-import React from 'react'
-import MainEmpleado from "../components/MainEmpleado"
+import CrudProductos from '../components/CrudProductos'
 
 const Empleado = () => {
     return (
         <div>
-            <MainEmpleado />
+            <CrudProductos />
         </div>
     )
 }
