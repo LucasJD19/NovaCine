@@ -11,7 +11,7 @@ const MainRegister = () => {
     nombre: "",
     apellido: "",
     email: "",
-    contraseña: "",
+    contrasena: "",
     rol: "cliente",
   });
 
@@ -101,15 +101,15 @@ const MainRegister = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="contraseña" className="form-label text-light">
+            <label htmlFor="contrasena" className="form-label text-light">
               Contraseña
             </label>
             <input
               type="password"
               className="form-control"
-              id="contraseña"
-              name="contraseña"
-              value={formData.contraseña}
+              id="contrasena"
+              name="contrasena"
+              value={formData.contrasena}
               onChange={handleChange}
               placeholder="Ingresá tu contraseña"
               required
