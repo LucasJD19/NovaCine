@@ -85,14 +85,17 @@ const MainFunciones = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        agregarAlCarrito({
+        agregarAlCarrito(
+        {
           id: pelicula.idPelicula,
           titulo: pelicula.titulo,
           precio: f.precio,
           imagen: pelicula.imagen,
           cantidad: 1,
-          trailer: pelicula.trailer
-        });
+          trailer: pelicula.trailer,
+        },
+        "pelicula"
+      );
 
         Swal.fire({
           title: "Agregado al carrito",
