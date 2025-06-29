@@ -113,6 +113,7 @@ const CrudProductos = () => {
                 <thead>
                     <tr>
                         <th scope="col" className="col-1"># ID</th>
+                        <th scope="col" className="col-1">Imagen</th>
                         <th scope="col" className="col-2">Nombre</th>
                         <th scope="col" className="col-2">Descripcion</th>
                         <th scope="col" className="col-2">Precio</th>
@@ -124,6 +125,9 @@ const CrudProductos = () => {
                     {productosActuales.map((producto) => (
                         <tr key={producto.idProducto}>
                             <th scope="row">{producto.idProducto}</th>
+                            <td>
+                                <img src={producto.imagen} alt="imagen" style={{ height: "50px", objectFit: "cover", borderRadius: "5px" }} />
+                            </td>
                             <td>{producto.nombre}</td>
                             <td>{producto.descripcion}</td>
                             <td>${producto.precio}</td>

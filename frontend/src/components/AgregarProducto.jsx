@@ -6,6 +6,8 @@ const AgregarProducto = ({ onClose, onGuardar }) => {
     const [descripcion, setDescripcion] = useState("");
     const [precio, setPrecio] = useState(0);
     const [stock, setStock] = useState("");
+    const [imagen, setImagen] = useState("");
+
 
     const handleGuardar = (e) => {
         e.preventDefault();
@@ -14,7 +16,8 @@ const AgregarProducto = ({ onClose, onGuardar }) => {
             nombre,
             descripcion,
             precio,
-            stock
+            stock,
+            imagen
         };
 
         onGuardar(nuevoProducto);
@@ -30,6 +33,7 @@ const AgregarProducto = ({ onClose, onGuardar }) => {
     return (
         <div className="modal-backdrop-custom">
             <Card style={{ width: '30rem', maxHeight: '90vh', overflowY: 'auto' }} className="bg-dark text-white text-center">
+                <br /><h2>Agregrar producto</h2>
                 <Card.Body>
                     <Form onSubmit={handleGuardar}>
                         <Form.Group className="mb-2">
@@ -44,12 +48,17 @@ const AgregarProducto = ({ onClose, onGuardar }) => {
 
                         <Form.Group className="mb-2">
                             <Form.Label>Stock</Form.Label>
-                            <Form.Control type="text" value={stock} onChange={(e) => setStock(e.target.value)} required />
+                            <Form.Control type="number" value={stock} onChange={(e) => setStock(e.target.value)} required />
                         </Form.Group>
 
                         <Form.Group className="mb-2">
                             <Form.Label>Precio</Form.Label>
-                            <Form.Control type="text" value={precio} onChange={(e) => setPrecio(e.target.value)} required />
+                            <Form.Control type="number" value={precio} onChange={(e) => setPrecio(e.target.value)} required />
+                        </Form.Group>
+
+                        <Form.Group className="mb-2">
+                            <Form.Label>URL de Imagen</Form.Label>
+                            <Form.Control type="text" value={imagen} onChange={(e) => setImagen(e.target.value)} />
                         </Form.Group>
 
                         <div className="d-flex justify-content-between mt-3">

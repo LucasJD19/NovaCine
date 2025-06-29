@@ -112,6 +112,7 @@ const CrudPeliculas = () => {
                 <thead>
                     <tr>
                         <th scope="col" className='col-1'># ID</th>
+                        <th scope="col" className="col-1">Imagen</th>
                         <th scope="col" className='col-2'>Titulo</th>
                         <th scope="col" className='col-2'>Descripcion</th>
                         <th scope="col" className='col-2'>Duracion</th>
@@ -123,6 +124,9 @@ const CrudPeliculas = () => {
                     {peliculasActuales.map((pelicula) => (
                         <tr key={pelicula.idPelicula}>
                             <th scope="row">{pelicula.idPelicula}</th>
+                            <td>
+                                <img src={pelicula.imagen} alt="imagen" style={{ height: "50px", objectFit: "cover", borderRadius: "5px" }} />
+                            </td>
                             <td>{pelicula.titulo}</td>
                             <td>{pelicula.descripcion}</td>
                             <td>{pelicula.duracion} min</td>
@@ -136,10 +140,7 @@ const CrudPeliculas = () => {
                     ))}
                 </tbody>
             </table>
-            {/* Controles de paginación */}
             <div className="d-flex justify-content-center my-4 align-items-center flex-wrap gap-2">
-
-                {/* Botón ir a primera página */}
                 {paginaActual > 3 && (
                     <button
                         onClick={() => setPaginaActual(1)}
@@ -148,8 +149,6 @@ const CrudPeliculas = () => {
                         {'«'}
                     </button>
                 )}
-
-                {/* Botón Anterior */}
                 {paginaActual > 1 && (
                     <button
                         onClick={() => setPaginaActual(paginaActual - 1)}
@@ -158,8 +157,6 @@ const CrudPeliculas = () => {
                         {'←'}
                     </button>
                 )}
-
-                {/* Botones numéricos */}
                 {Array.from({ length: totalPaginas }, (_, i) => i + 1)
                     .filter(num => {
                         if (totalPaginas <= 5) return true;
@@ -181,8 +178,6 @@ const CrudPeliculas = () => {
                             {num}
                         </button>
                     ))}
-
-                {/* Botón Siguiente */}
                 {paginaActual < totalPaginas && (
                     <button
                         onClick={() => setPaginaActual(paginaActual + 1)}
@@ -191,8 +186,6 @@ const CrudPeliculas = () => {
                         {'→'}
                     </button>
                 )}
-
-                {/* Botón ir a última página */}
                 {paginaActual < totalPaginas - 2 && (
                     <button
                         onClick={() => setPaginaActual(totalPaginas)}
@@ -202,10 +195,6 @@ const CrudPeliculas = () => {
                     </button>
                 )}
             </div>
-
-
-
-
         </div>
     )
 }

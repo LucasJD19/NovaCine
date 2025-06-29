@@ -6,6 +6,8 @@ const EditarPelicula = ({ producto, onClose, onGuardar }) => {
     const [descripcion, setDescripcion] = useState("");
     const [precio, setPrecio] = useState(0);
     const [stock, setStock] = useState("");
+    const [imagen, setImagen] = useState("");
+
 
     useEffect(() => {
         if (producto) {
@@ -13,6 +15,7 @@ const EditarPelicula = ({ producto, onClose, onGuardar }) => {
             setDescripcion(producto.descripcion);
             setPrecio(producto.precio);
             setStock(producto.stock || "");
+            setImagen(producto.imagen || "");
         }
     }, [producto]);
 
@@ -33,7 +36,8 @@ const EditarPelicula = ({ producto, onClose, onGuardar }) => {
             nombre,
             descripcion,
             precio,
-            stock
+            stock,
+            imagen
         };
 
         onGuardar(producto.idProducto, datosActualizados);
@@ -53,6 +57,21 @@ const EditarPelicula = ({ producto, onClose, onGuardar }) => {
         <div className="modal-backdrop-custom">
             <Card style={{ width: '30rem', maxHeight: '90vh', overflowY: 'auto' }} className="bg-dark text-white text-center">
                 <Card.Body>
+
+                    {imagen && (
+                        <img
+                            src={imagen}
+                            alt="Vista previa del producto"
+                            className="mx-auto d-block"
+                            style={{
+                                maxHeight: "200px",
+                                objectFit: "cover",
+                                borderRadius: "10px",
+                                marginBottom: "15px"
+                            }}
+                        />
+                    )}
+
                     <Form>
                         <Form.Group className="mb-2">
                             <Form.Label>Nombre</Form.Label>
@@ -71,7 +90,12 @@ const EditarPelicula = ({ producto, onClose, onGuardar }) => {
 
                         <Form.Group className="mb-2">
                             <Form.Label>Stock</Form.Label>
-                            <Form.Control type="text" value={stock} onChange={(e) => setStock(e.target.value)} />
+                            <Form.Control type="number" value={stock} onChange={(e) => setStock(e.target.value)} />
+                        </Form.Group>
+
+                        <Form.Group className="mb-2">
+                            <Form.Label>URL de Imagen</Form.Label>
+                            <Form.Control type="text" value={imagen} onChange={(e) => setImagen(e.target.value)} />
                         </Form.Group>
                     </Form>
 
@@ -84,6 +108,7 @@ const EditarPelicula = ({ producto, onClose, onGuardar }) => {
                         </Button>
                     </div>
                 </Card.Body>
+
             </Card>
         </div>
     );

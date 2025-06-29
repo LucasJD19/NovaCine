@@ -10,22 +10,22 @@ const Producto = {
   },
 
   crear: (producto, callback) => {
-    const { nombre, descripcion, precio, stock } = producto;
+    const { nombre, descripcion, precio, stock, imagen } = producto;
     db.query(
-      "INSERT INTO productos (nombre, descripcion, precio, stock) VALUES (?, ?, ?, ?)",
-      [nombre, descripcion, precio, stock],
+      "INSERT INTO productos (nombre, descripcion, precio, stock, imagen) VALUES (?, ?, ?, ?, ?)",
+      [nombre, descripcion, precio, stock, imagen],
       callback
     );
   },
 
   actualizar: (id, producto, callback) => {
-    const { nombre, descripcion, precio, stock } = producto;
+    const { nombre, descripcion, precio, stock, imagen } = producto;
     db.query(
-      "UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ? WHERE idProducto = ?",
-      [nombre, descripcion, precio, stock, id],
+      "UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ?, imagen = ? WHERE idProducto = ?",
+      [nombre, descripcion, precio, stock, imagen, id],
       callback
     );
-  },
+  },  
 
   eliminar: (id, callback) => {
     db.query("DELETE FROM productos WHERE idProducto = ?", [id], callback);

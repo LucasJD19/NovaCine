@@ -36,6 +36,7 @@ const AgregarPelicula = ({ onClose, onGuardar }) => {
     return (
         <div className="modal-backdrop-custom">
             <Card style={{ width: '30rem', maxHeight: '90vh', overflowY: 'auto' }} className="bg-dark text-white text-center">
+                <br /><h2>Agregrar pelicula</h2>
                 {imagen && <Card.Img variant="top" src={imagen} />}
                 <Card.Body>
                     <Form onSubmit={handleGuardar}>

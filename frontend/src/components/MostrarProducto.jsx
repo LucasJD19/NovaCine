@@ -10,6 +10,17 @@ const MostrarProducto = ({ producto, onClose }) => {
       <Modal.Body className="bg-dark text-white">
         <Card className="bg-dark text-white text-center border-0">
           <Card.Body>
+            <img
+              src={producto.imagen}
+              alt={producto.nombre}
+              className="mx-auto d-block"
+              style={{
+                maxHeight: "200px",
+                objectFit: "cover",
+                borderRadius: "10px",
+                marginBottom: "10px"
+              }}
+            />
             <ListGroup variant="flush">
               <ListGroup.Item className="bg-secondary text-white">Descripción: {producto.descripcion}</ListGroup.Item>
               <ListGroup.Item className="bg-secondary text-white">Precio: ${producto.precio}</ListGroup.Item>
