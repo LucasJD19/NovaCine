@@ -59,7 +59,7 @@ const MainLogin = () => {
           navigate("/empleado");
           break;
         case "cliente":
-          navigate("/home");
+          navigate("/");
           break;
         default:
           Swal.fire("Error", "Rol desconocido", "error");

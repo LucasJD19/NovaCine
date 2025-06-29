@@ -12,13 +12,14 @@ import Empleado from "./pages/Empleado";
 import Busqueda from "./pages/Busqueda";
 import Error from "./pages/Error";
 import Admin from "./pages/Admin";
+import RutaPrivada from "./components/RutaPrivada";
 
 const App = () => {
   return (
     <>
       <Header />
       <main className="main-content">
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/estrenos" element={<Estrenos />} />
           <Route path="/tienda" element={<Tienda />} />
@@ -30,6 +31,38 @@ const App = () => {
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/busqueda" element={<Busqueda />} />
           <Route path="*" element={<Error />} />
+        </Routes> */}
+
+        <Routes>
+          {/* Rutas públicas */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/estrenos" element={<Estrenos />} />
+          <Route path="/tienda" element={<Tienda />} />
+          <Route path="/busqueda" element={<Busqueda />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/funciones/:idPelicula" element={<Funciones />} />
+          <Route path="*" element={<Error />} />
+
+          {/* Ruta solo para admin */}
+          <Route
+            path="/admin/*"
+            element={
+              <RutaPrivada rolesPermitidos={["admin"]}>
+                <Admin />
+              </RutaPrivada>
+            }
+          />
+          {/* Ruta solo para empleado */}
+          <Route
+            path="/empleado"
+            element={
+              <RutaPrivada rolesPermitidos={["empleado"]}>
+                <Empleado />
+              </RutaPrivada>
+            }
+          />
         </Routes>
       </main>
       <Footer />
