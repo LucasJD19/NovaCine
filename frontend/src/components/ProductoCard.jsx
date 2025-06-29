@@ -10,8 +10,8 @@ const ProductoCard = ({ id, titulo, precio, imagen, tipo }) => {
 
   const handleAgregar = () => {
     const producto = { id, titulo, precio, tipo, imagen };
-    console.log("Agregando producto:", producto);
-    agregarAlCarrito(producto);
+    console.log("Agregando producto:", tipo);
+    agregarAlCarrito(producto, tipo);
     Swal.fire({
       position: "top-end",
       icon: "success",

@@ -1,25 +1,25 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export const useCarritoStore = create((set, get) => ({
   productos: [],
 
-  agregarAlCarrito: (producto) => {
+  agregarAlCarrito: (producto, tipo) => {
     const productosActuales = get().productos;
+    const productoConTipo = { ...producto, tipo };
 
     const existente = productosActuales.find((item) => {
-      if (producto.idProducto) {
-        return item.idProducto === producto.idProducto;
-      } else if (producto.idCombo) {
-        return item.idCombo === producto.idCombo;
-      }
+      if (tipo === "producto") return item.tipo === tipo && item.idProducto === producto.idProducto;
+      if (tipo === "combo") return item.tipo === tipo && item.idCombo === producto.idCombo;
+      if (tipo === "pelicula") return item.tipo === tipo && item.id === producto.id;
       return false;
     });
 
     if (existente) {
       const actualizados = productosActuales.map((item) => {
         if (
-          (producto.idProducto && item.idProducto === producto.idProducto) ||
-          (producto.idCombo && item.idCombo === producto.idCombo)
+          (tipo === "producto" && item.tipo === tipo && item.idProducto === producto.idProducto) ||
+          (tipo === "combo" && item.tipo === tipo && item.idCombo === producto.idCombo) ||
+          (tipo === "pelicula" && item.tipo === tipo && item.id === producto.id)
         ) {
           return { ...item, cantidad: item.cantidad + 1 };
         }
@@ -27,17 +27,18 @@ export const useCarritoStore = create((set, get) => ({
       });
       set({ productos: actualizados });
     } else {
-      set({ productos: [...productosActuales, { ...producto, cantidad: 1 }] });
+      set({ productos: [...productosActuales, { ...productoConTipo, cantidad: 1 }] });
     }
   },
 
-  reducirCantidad: (idObj) => {
+  reducirCantidad: (producto, tipo) => {
     const productosActuales = get().productos;
     const actualizados = productosActuales
       .map((item) => {
         if (
-          (idObj.idProducto && item.idProducto === idObj.idProducto) ||
-          (idObj.idCombo && item.idCombo === idObj.idCombo)
+          (tipo === "producto" && item.tipo === tipo && item.idProducto === producto.idProducto) ||
+          (tipo === "combo" && item.tipo === tipo && item.idCombo === producto.idCombo) ||
+          (tipo === "pelicula" && item.tipo === tipo && item.id === producto.id)
         ) {
           return { ...item, cantidad: item.cantidad - 1 };
         }
@@ -48,16 +49,15 @@ export const useCarritoStore = create((set, get) => ({
     set({ productos: actualizados });
   },
 
-  eliminarDelCarrito: (idObj) => {
-    const filtrados = get().productos.filter((item) => {
-      if (idObj.idProducto) {
-        return item.idProducto !== idObj.idProducto;
-      } else if (idObj.idCombo) {
-        return item.idCombo !== idObj.idCombo;
-      }
+  eliminarDelCarrito: (producto, tipo) => {
+    const productosActuales = get().productos;
+    const actualizados = productosActuales.filter((item) => {
+      if (tipo === "producto") return !(item.tipo === tipo && item.idProducto === producto.idProducto);
+      if (tipo === "combo") return !(item.tipo === tipo && item.idCombo === producto.idCombo);
+      if (tipo === "pelicula") return !(item.tipo === tipo && item.id === producto.id);
       return true;
     });
-    set({ productos: filtrados });
+    set({ productos: actualizados });
   },
 
   vaciarCarrito: () => set({ productos: [] }),

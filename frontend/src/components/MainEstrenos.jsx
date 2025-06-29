@@ -46,7 +46,7 @@ const MainEstrenos = () => {
             titulo={peli.titulo}
             precio={peli.precio}
             imagen={peli.imagen}
-            tipo="boleto"
+            tipo="pelicula"
           />
         ))}
       </div>

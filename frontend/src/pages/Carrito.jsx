@@ -188,49 +188,56 @@ const Carrito = () => {
           mostrarFormulario ? "mover-carrito" : ""
         }`}
       >
-        {productos.map((producto) => (
-          <div key={producto.id} className="producto-item">
-            <div className="info-producto">
-              <img src={producto.imagen} alt="" />
-              <span>
-                <strong>{producto.titulo}</strong> - ${producto.precio} x{" "}
-                {producto.cantidad}
-              </span>
-            </div>
-            <div className="botones-cantidad">
-              <button
-                style={{
-                  backgroundColor: "transparent",
-                  border: "2px solid red",
-                  color: "red",
-                }}
-                onClick={() => reducirCantidad(producto.id)}
-              >
-                -
-              </button>
-              <button
-                style={{
-                  backgroundColor: "transparent",
-                  border: "2px solid green",
-                  color: "green",
-                }}
-                onClick={() => agregarAlCarrito(producto)}
-              >
-                +
-              </button>
-              <button
-                style={{
-                  backgroundColor: "transparent",
-                  border: "2px solid red",
-                  color: "red",
-                }}
-                onClick={() => eliminarDelCarrito(producto.id)}
-              >
-                Eliminar
-              </button>
-            </div>
-          </div>
-        ))}
+        {productos.map((producto, index) => {
+  const tipo = producto.tipo;
+  const id =
+    producto.idProducto ?? producto.idCombo ?? producto.id ?? index;
+
+  return (
+    <div key={`${tipo}-${id}`} className="producto-item">
+      <div className="info-producto">
+        <img src={producto.imagen} alt="" />
+        <span>
+          <strong>{producto.titulo}</strong> - ${producto.precio} x{" "}
+          {producto.cantidad}
+        </span>
+      </div>
+      <div className="botones-cantidad">
+        <button
+          style={{
+            backgroundColor: "transparent",
+            border: "2px solid red",
+            color: "red",
+          }}
+          onClick={() => reducirCantidad(producto, tipo)}
+        >
+          -
+        </button>
+        <button
+          style={{
+            backgroundColor: "transparent",
+            border: "2px solid green",
+            color: "green",
+          }}
+          onClick={() => agregarAlCarrito(producto, tipo)}
+        >
+          +
+        </button>
+        <button
+          style={{
+            backgroundColor: "transparent",
+            border: "2px solid red",
+            color: "red",
+          }}
+          onClick={() => eliminarDelCarrito(producto, tipo)}
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  );
+})}
+
 
         <h3>Total: ${obtenerTotal().toFixed(2)}</h3>
         <div className="botones-carrito">

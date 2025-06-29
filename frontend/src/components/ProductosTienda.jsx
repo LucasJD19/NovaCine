@@ -10,12 +10,27 @@ const ProductosTienda = () => {
 
   useEffect(() => {
     if (filtro === "todos") {
+      Promise.all([getProductos(), getCombos()])
+        .then(([productosData, combosData]) => {
+          // productosData y combosData son arrays directos
+          const productosConTipo = productosData.map(p => ({ ...p, tipo: "producto" }));
+          const combosConTipo = combosData.map(c => ({ ...c, tipo: "combo" }));
+          setProductos([...productosConTipo, ...combosConTipo]);
+        })
+        .catch((err) => console.error(err));
+    } else if (filtro === "productos") {
       getProductos()
-        .then((data) => setProductos(data))
+        .then((data) => {
+          const productosConTipo = data.map(p => ({ ...p, tipo: "producto" }));
+          setProductos(productosConTipo);
+        })
         .catch((err) => console.error(err));
     } else if (filtro === "combos") {
       getCombos()
-        .then((data) => setProductos(data))
+        .then((data) => {
+          const combosConTipo = data.map(c => ({ ...c, tipo: "combo" }));
+          setProductos(combosConTipo);
+        })
         .catch((err) => console.error(err));
     }
   }, [filtro]);
@@ -58,7 +73,7 @@ const ProductosTienda = () => {
             titulo={prod.nombre || prod.nombreCombo}
             precio={prod.precio || prod.precioCombo}
             imagen={prod.imagen || "../../public/images/Combo.png"}
-            tipo={prod.tipo || "combo"}
+            tipo={prod.tipo}
           />
         ))}
       </div>
