@@ -91,6 +91,7 @@ const MainFunciones = () => {
           precio: f.precio,
           imagen: pelicula.imagen,
           cantidad: 1,
+          trailer: pelicula.trailer
         });
 
         Swal.fire({

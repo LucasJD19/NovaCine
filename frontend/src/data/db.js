@@ -8,3 +8,5 @@ export const getPeliculas = () => API.get('/peliculas').then(res => res.data);
 export const getProductos = () => API.get('/productos').then(res => res.data);
 export const getFuncionesPorPelicula = (idPelicula) => API.get(`/funciones/pelicula/${idPelicula}`).then(res => res.data);
 export const getCombos = () => API.get('/combos').then(res => res.data);
+export const registrarPago = (datosPago) =>
+  API.post('/pagos', datosPago).then(res => res.data);

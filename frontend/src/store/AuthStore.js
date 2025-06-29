@@ -1,16 +1,11 @@
 import { create } from "zustand";
 
-const getUserFromSession = () => {
-  const userJSON = sessionStorage.getItem("user");
-  if (userJSON) {
-    try {
-      return JSON.parse(userJSON);
-    } catch {
-      return null;
-    }
-  }
-  return null;
-};
+
+function getUserFromSession() {
+  const user = sessionStorage.getItem("user");
+  console.log("Usuario en sessionStorage:", user);
+  return user ? JSON.parse(user) : null;
+}
 
 export const useAuthStore = create((set) => ({
   user: getUserFromSession(),
@@ -25,4 +20,3 @@ export const useAuthStore = create((set) => ({
     set({ user: null });
   },
 }));
-
