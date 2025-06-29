@@ -13,6 +13,7 @@ const sucursalesRoutes = require('./routes/sucursales.routes');
 const loginRoutes = require("./routes/login.routes");
 const combosRoutes = require("./routes/combos.routes");
 const comboProductoRoutes = require("./routes/combo_producto.routes");
+const pagosRoutes = require("./routes/pagos.routes");
 
 
 // Configuracion de Express y otras herramientas
@@ -37,6 +38,7 @@ app.use("/api/sucursales", sucursalesRoutes);
 app.use("/api", loginRoutes);
 app.use("/api/combos", combosRoutes);
 app.use("/api/combo-producto", comboProductoRoutes);
+app.use("/api/pagos", pagosRoutes);
 
 
 // Servidor escucha en el puerto definido en .env o 8000 por defecto
