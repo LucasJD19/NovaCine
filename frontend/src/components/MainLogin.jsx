@@ -11,7 +11,7 @@ const MainLogin = () => {
 
   const [formData, setFormData] = useState({
     email: "",
-    contraseña: "",
+    contrasena: "",
   });
 
   const handleChange = (e) => {
@@ -111,11 +111,11 @@ const MainLogin = () => {
             <input
               type="password"
               className="form-control"
-              id="contraseña"
-              name="contraseña"
-              value={formData.contraseña}
+              id="contrasena"
+              name="contrasena"
+              value={formData.contrasena}
               onChange={handleChange}
-              placeholder="Ingresá tu contraseña"
+              placeholder="Ingresá tu contrasena"
               required
             />
           </div>

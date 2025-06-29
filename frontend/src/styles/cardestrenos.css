@@ -1,10 +1,10 @@
 .card-hover {
   transition: transform 0.3s ease;
+  
 }
 
 .card-hover:hover {
   transform: scale(1.05);
-  z-index: 1;
 }
 .btn {
   transition: transform 0.3s ease;
@@ -13,3 +13,4 @@
     transform: scale(1.05);
     z-index: 1;
 }
+

@@ -10,6 +10,7 @@ margin: 0px;
 .card {
     border-color: white;
     transition: transform 0.3s ease;
+    max-height: 550px;
 }
 
 .card:hover {

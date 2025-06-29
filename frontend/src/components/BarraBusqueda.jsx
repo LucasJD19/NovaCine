@@ -32,7 +32,7 @@ const BarraBusqueda = () => {
   return (
     <form
       onSubmit={handleBuscar}
-      className="d-flex align-items-center w-80 gap-2 bg-dark p-2 rounded"
+      className="d-flex align-items-center w-80 gap-2 bg-dark p-2 rounded m-auto"
     >
       <select
         className="form-select bg-dark text-white"

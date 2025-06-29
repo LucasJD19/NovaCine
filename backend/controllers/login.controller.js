@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 exports.login = (req, res) => {
-  const { email, contraseña } = req.body;
+  const { email, contrasena } = req.body;
 
   const sql = "SELECT * FROM usuarios WHERE email = ?";
   db.query(sql, [email], (err, resultados) => {
@@ -13,7 +13,7 @@ exports.login = (req, res) => {
 
     const usuario = resultados[0];
 
-    if (usuario.contraseña !== contraseña) {
+    if (usuario.contrasena !== contrasena) {
       return res.status(401).json({ error: "Contraseña incorrecta" });
     }
 
